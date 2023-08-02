@@ -14,5 +14,5 @@ m.fit(df)
 fig = m.plot(forecast)
 a = add_changepoints_to_plot(fig.gca(), m, forecast)
 
- st.plotly_chart(a, 
+st.plotly_chart(a, 
          use_container_width=True )
