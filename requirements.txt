@@ -1,0 +1,4 @@
+pandas==1.5.3
+prophet==1.1.4
+requests==2.27.1
+matplotlib==3.7.1
