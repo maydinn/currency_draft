@@ -6,6 +6,7 @@ import io
 import matplotlib.pyplot as plt
 from prophet.plot import add_changepoints_to_plot
 import streamlit as st
+import plotly.tools
 
 df = pd.read_csv('data.csv')
 m = Prophet()
