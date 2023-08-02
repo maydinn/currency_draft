@@ -18,7 +18,7 @@ forecast = m.predict(future)
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast)
 fig, x = plt.subplots()
-fig = a
+x = a
 
 # @st.cache(hash_funcs={matplotlib.figure.Figure: hash})
 # def plot():
