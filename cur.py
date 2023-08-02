@@ -16,7 +16,8 @@ m.fit(df)
 future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
 fig_ = m.plot(forecast)
-#a = add_changepoints_to_plot(fig_.gca(), m, forecast)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast)
+st.pyplot(fig_)
 #fig, x = plt.subplots()
 #x = a
 
@@ -30,4 +31,4 @@ fig_ = m.plot(forecast)
 #     return fig
 
 #horizontal_size = st.slider("horizontal size", 50,150,step=50)
-st.pyplot(fig_)
+
