@@ -16,16 +16,18 @@ m.fit(df)
 future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
 fig_ = m.plot(forecast)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast)
+fig, x = plt.subplots()
+fig = a
 
-
-@st.cache(hash_funcs={matplotlib.figure.Figure: hash})
-def plot():
-    #time.sleep(2)
-    a = add_changepoints_to_plot(fig_.gca(), m, forecast)
-    fig, ax = plt.subplots(11)
-    ax.imshow(a)
+# @st.cache(hash_funcs={matplotlib.figure.Figure: hash})
+# def plot():
+#     #time.sleep(2)
+#     a = add_changepoints_to_plot(fig_.gca(), m, forecast)
+#     fig, ax = plt.subplots(11)
+#     ax.imshow(a)
     
-    return fig
+#     return fig
 
 #horizontal_size = st.slider("horizontal size", 50,150,step=50)
-st.write(plot())
+st.pyplot(fig)
