@@ -17,8 +17,8 @@ future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
 fig_ = m.plot(forecast)
 #a = add_changepoints_to_plot(fig_.gca(), m, forecast)
-fig, x = plt.subplots()
-x = a
+#fig, x = plt.subplots()
+#x = a
 
 # @st.cache(hash_funcs={matplotlib.figure.Figure: hash})
 # def plot():
