@@ -10,8 +10,8 @@ import streamlit as st
 df = pd.read_csv('data.csv')
 m = Prophet()
 m.fit(df)
-
-
+future = m.make_future_dataframe(periods=3, freq="B")
+forecast = m.predict(future)
 fig = m.plot(forecast)
 a = add_changepoints_to_plot(fig.gca(), m, forecast)
 
