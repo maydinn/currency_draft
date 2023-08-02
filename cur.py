@@ -30,4 +30,4 @@ x = a
 #     return fig
 
 #horizontal_size = st.slider("horizontal size", 50,150,step=50)
-st.pyplot(fig)
+st.pyplot(fig_)
