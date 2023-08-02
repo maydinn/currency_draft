@@ -4,6 +4,7 @@ from prophet import Prophet
 import requests
 import io
 import matplotlib.pyplot as plt
+import matplotlib
 from prophet.plot import add_changepoints_to_plot
 import streamlit as st
 import plotly.tools
