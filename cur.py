@@ -22,7 +22,7 @@ fig_ = m.plot(forecast)
 def plot():
     #time.sleep(2)
     a = add_changepoints_to_plot(fig_.gca(), m, forecast)
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(11)
     ax.imshow(a)
     
     return fig
