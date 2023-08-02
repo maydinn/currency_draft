@@ -9,6 +9,7 @@ from prophet.plot import add_changepoints_to_plot
 import streamlit as st
 import plotly.tools
 
+
 df = pd.read_csv('data.csv')
 m = Prophet()
 m.fit(df)
@@ -19,12 +20,12 @@ fig = m.plot(forecast)
 
 @st.cache(hash_funcs={matplotlib.figure.Figure: hash})
 def plot():
-    time.sleep(2)
+    #time.sleep(2)
     a = add_changepoints_to_plot(fig.gca(), m, forecast)
     fig, ax = plt.subplots()
     ax.imshow(a)
     
     return fig
 
-horizontal_size = st.slider("horizontal size", 50,150,step=50)
+#horizontal_size = st.slider("horizontal size", 50,150,step=50)
 st.write(plot())
