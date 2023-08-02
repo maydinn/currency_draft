@@ -15,13 +15,13 @@ m = Prophet()
 m.fit(df)
 future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
-fig = m.plot(forecast)
+fig_ = m.plot(forecast)
 
 
 @st.cache(hash_funcs={matplotlib.figure.Figure: hash})
 def plot():
     #time.sleep(2)
-    a = add_changepoints_to_plot(fig.gca(), m, forecast)
+    a = add_changepoints_to_plot(fig_.gca(), m, forecast)
     fig, ax = plt.subplots()
     ax.imshow(a)
     
