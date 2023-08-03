@@ -9,6 +9,10 @@ from prophet.plot import add_changepoints_to_plot
 import streamlit as st
 import plotly.tools
 
+with open('style.css') as f:
+    st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+    
+
 df = pd.read_csv('data.csv')
 df['ds'] = pd.to_datetime(df['ds'])
 col1, col2, col3, col4 = st.columns(4)
@@ -31,7 +35,7 @@ val = round(df.y.rolling(7).mean().values[-1],2)
 delta_current ='The mean for the last 7 days for {} is {}'.format(key,val )
 col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
-m = Prophet()
+m = Prophet(n_changepoints = 10)
 m.fit(df)
 future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
@@ -44,6 +48,17 @@ with c1:
 with c2:
     df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
     st.write(df.rename(columns = {'str_time':'date', 'y':'values'}).tail(7).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True))
+    
+col1, col2 = st.columns((4, 8))
+col1_x = col1.expander('Changes Points')
+
+with col1_x:
+    st.write(df.loc[df["ds"].isin(m.changepoints)].rename(columns = {'ds':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True))
+    
+
+col2_x = col2.expander('News in Changes Points')
+
+with col2_x:
 #fig, x = plt.subplots()
 #x = a
 
