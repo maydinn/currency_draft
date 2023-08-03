@@ -27,9 +27,9 @@ delta_current ='The minimum value for {} in this year was {}, and comparing toda
 col3.metric("Max", f'{df.y.min()}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'inverse', delta_current)
 
 
-
-delta_current ='The mean for the last 7 days for {} is {}'.format(key,sum(df.y.values[-1:-7])/7 )
-col4.metric("Mean in last 7 days",  f'{sum(df.y.values[-1:-7])/7} °C', '' ,"inverse" if val >= 0 else "normal", delta_current )
+val = round(df.y.rolling(7).mean().values[-1],2)
+delta_current ='The mean for the last 7 days for {} is {}'.format(key,val )
+col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet()
 m.fit(df)
