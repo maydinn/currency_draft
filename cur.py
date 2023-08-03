@@ -10,7 +10,7 @@ import streamlit as st
 import plotly.tools
 
 df = pd.read_csv('data.csv')
-df.ds = df.ds.astype('datetime64[ns]')
+df['ds'] = pd.to_datetime(df['ds'])
 col1, col2, col3, col4 = st.columns(4)
 key = 'Turkisch Lira'
 now = df.y.values[-1]
