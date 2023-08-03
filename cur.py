@@ -42,7 +42,8 @@ with c1:
     st.pyplot(fig_)
     
 with c2:
-    st.write(df.rename(columns = {'ds':'date', 'y':'values'}).tail(7).sort_values('date',ascending=False))
+    df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
+    st.write(df.rename(columns = {'str_time':'date', 'y':'values'}).tail(7).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True))
 #fig, x = plt.subplots()
 #x = a
 
