@@ -62,6 +62,7 @@ with col1_x:
 col2_x = col2.expander('News in Changes Points')
 
 with col2_x:
+    st.write('ongoing')
 #fig, x = plt.subplots()
 #x = a
 
