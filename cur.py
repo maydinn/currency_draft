@@ -20,11 +20,11 @@ col1.metric("Current",  f'{now}', df.ds.max().dt.strftime("%d %b, %Y"), "inverse
 
 val = round(df.y.max() - now,2)
 delta_current ='The maximum value for {} in this year was {}, and comparing today {} °C {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
-col2.metric("Max", f'{df.y.max()}', str(df[df.y == df.y.max()]['ds'].dt.strftime("%d %b, %Y") 'inverse', delta_current)
+col2.metric("Max", f'{df.y.max()}', df[df.y == df.y.max()]['ds'].dt.strftime("%d %b, %Y"), 'inverse', delta_current)
 
 val = round(df.y.min() - now,2)
 delta_current ='The minimum value for {} in this year was {}, and comparing today {} °C {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
-col2.metric("Max", f'{df.y.min()}', str(df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y")), 'inverse', delta_current)
+col2.metric("Max", f'{df.y.min()}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y"), 'inverse', delta_current)
 
 
 
