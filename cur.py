@@ -14,7 +14,7 @@ df = pd.read_csv('data.csv')
 key = 'Turkisch Lira'
 now = df.y.values[-1]
 val = round(df.y.values[0] - now,2)
-delta_current ='The current {} is {} comparing the same day before'.format(,key,val, "more" if val >= 0 else "less")
+delta_current ='The current {} is {} comparing the same day before'.format(key,val, "more" if val >= 0 else "less")
 col1.metric("Current",  f'{now}', df.ds.max(), "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max - now],2)
