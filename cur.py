@@ -42,12 +42,15 @@ forecast = m.predict(future)
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast)
 c1, c2 = st.columns([3, 1])
+df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 with c1:
     st.pyplot(fig_)
     
 with c2:
-    df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
+    
     st.write(df.rename(columns = {'str_time':'date', 'y':'values'}).tail(7).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True))
+    
+st.write('hey')    
     
 col1, col2 = st.columns((4, 8))
 col1_x = col1.expander('Changes Points')
