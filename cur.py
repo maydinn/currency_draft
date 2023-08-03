@@ -24,7 +24,7 @@ col2.metric("Max", f'{df.y.max()}', df[df.y == df.y.max()]['ds'].dt.strftime("%d
 
 val = round(df.y.min() - now,2)
 delta_current ='The minimum value for {} in this year was {}, and comparing today {} °C {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
-col3.metric("Max", f'{df.y.min()}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'inverse', delta_current)
+col3.metric("Min", f'{df.y.min()}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
 
 
 val = round(df.y.rolling(7).mean().values[-1],2)
@@ -37,7 +37,12 @@ future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast)
-st.pyplot(fig_)
+c1, c2 = st.columns([3, 1])
+with c1:
+    st.pyplot(fig_)
+    
+with c2:
+    st.write(df.rename(columns = {'ds':'date', 'y':'values'}).tail(7).sort_values('date',ascending=False))
 #fig, x = plt.subplots()
 #x = a
 
