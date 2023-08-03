@@ -50,13 +50,13 @@ with c2:
     
     st.write(df.rename(columns = {'str_time':'date', 'y':'values'}).tail(7).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True))
     
-st.write('hey')    
+
     
 col1, col2 = st.columns((4, 8))
 col1_x = col1.expander('Changes Points')
 
 with col1_x:
-    st.write(df.loc[df["ds"].isin(m.changepoints)].rename(columns = {'ds':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True))
+    st.write(df.loc[df["ds"].isin(m.changepoints)].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True))
     
 
 col2_x = col2.expander('News in Changes Points')
