@@ -9,6 +9,20 @@ from prophet.plot import add_changepoints_to_plot
 import streamlit as st
 import plotly.tools
 
+st.set_page_config(layout='wide', initial_sidebar_state='expanded',page_title="currency",
+    )
+st.write(
+    """
+    <style>
+    [data-testid="stMetricDelta"] svg {
+        display: none;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
 with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
