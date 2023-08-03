@@ -11,6 +11,7 @@ import plotly.tools
 
 df = pd.read_csv('data.csv')
 
+col1, col2, col3, col4 = st.columns(4)
 key = 'Turkisch Lira'
 now = df.y.values[-1]
 val = round(df.y.values[0] - now,2)
