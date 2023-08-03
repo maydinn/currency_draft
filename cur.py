@@ -10,7 +10,7 @@ import streamlit as st
 import plotly.tools
 
 df = pd.read_csv('data.csv')
-
+df.ds = pd.to_datetime(df.ds)
 col1, col2, col3, col4 = st.columns(4)
 key = 'Turkisch Lira'
 now = df.y.values[-1]
@@ -20,11 +20,11 @@ col1.metric("Current",  f'{now}', df.ds.max(), "inverse" if val >= 0 else "norma
 
 val = round(df.y.max() - now,2)
 delta_current ='The maximum value for {} in this year was {}, and comparing today {} °C {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
-col2.metric("Max", f'{df.y.max()}', str(df[df.y == data.y.max()]['time'].dt.strftime('%m-%d')), 'inverse', delta_current)
+col2.metric("Max", f'{df.y.max()}', str(df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d')), 'inverse', delta_current)
 
 val = round(df.y.min() - now,2)
 delta_current ='The minimum value for {} in this year was {}, and comparing today {} °C {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
-col2.metric("Max", f'{df.y.min()}', str(df[df.y == data.y.min()]['time'].dt.strftime('%m-%d')), 'inverse', delta_current)
+col2.metric("Max", f'{df.y.min()}', str(df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d')), 'inverse', delta_current)
 
 
 
