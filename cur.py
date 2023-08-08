@@ -77,8 +77,8 @@ with col1_x:
     
 
 col2_x = col2.expander('News in Changes Points')
-points = df.loc[df["ds"].isin(m.changepoints)]
-st.write(points)
+points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True))
+#st.write(points)
 d = datetime.timedelta(days = 7)
 df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
 eco = df0[df0.keywords.apply(lambda x: True if 'econom' in " ".join([i['value'].lower() for i in x]) else False)]
