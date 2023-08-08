@@ -81,9 +81,8 @@ df0 =ny[(ny.time <( m.changepoints[0] + d)) & (ny.time > (m.changepoints[0] - d)
 eco = df0[df0.keywords.apply(lambda x: True if 'econom' in " ".join([i['value'].lower() for i in x]) else False)]
 eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url', 'Url'} )
 with col2_x:
-    col2_1 = col2_x.expander(m.changepoints[0])
-    with col2_1:
-        st.write(eco)
+    st.write(eco)
+        
     
 #fig, x = plt.subplots()
 #x = a
