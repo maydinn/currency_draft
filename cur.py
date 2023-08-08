@@ -78,7 +78,7 @@ with col1_x:
     st.write(df.loc[df["ds"].isin(m.changepoints)].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True))
     
 
-col2_x = col2.expander('News in Changes Points')
+
 points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
 
 d = datetime.timedelta(days = 7)
@@ -86,10 +86,13 @@ df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
 #st.write(df0)
 eco = df0[df0['abstract'].apply(lambda x: True if 'turkey' in x.lower() else False)]
 eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
+col2_x = col2.expander(points['ds'][0])
 with col2_x:
-    col2_1 = col2_x.expander('d')
-    with col2_1:
-        st.write(eco)       
+    st.write(eco)   
+    
+col2_y = col2.expander(points['ds'][1])
+with col2_y:
+    st.write(eco)   
     
 #fig, x = plt.subplots()
 #x = a
