@@ -30,6 +30,7 @@ with open('style.css') as f:
 
 df = pd.read_csv('data.csv')
 ny = pd.read_csv('ny.csv')
+ny['time'] = pd.to_datetime(ny['time'])
 df['ds'] = pd.to_datetime(df['ds'])
 col1, col2, col3, col4 = st.columns(4)
 key = 'Turkisch Lira'
