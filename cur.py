@@ -79,7 +79,7 @@ col2_x = col2.expander('News in Changes Points')
 d = datetime.timedelta(days = 7)
 df0 =ny[(ny.time <( m.changepoints[0] + d)) & (ny.time > (m.changepoints[0] - d))]
 eco = df0[df0.keywords.apply(lambda x: True if 'econom' in " ".join([i['value'].lower() for i in x]) else False)]
-eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url', 'Url'} )
+eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
 with col2_x:
     st.write(eco)
         
