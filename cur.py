@@ -74,8 +74,10 @@ with c2:
 col1, col2 = st.columns((4, 8))
 col1_x = col1.expander('Changes Points')
 
+chage_points = df.loc[df["ds"].isin(m.changepoints)].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
+
 with col1_x:
-    st.write(df.loc[df["ds"].isin(m.changepoints)].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True))
+    st.write(chage_points)
     
 
 
@@ -86,11 +88,12 @@ df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
 #st.write(df0)
 eco = df0[df0['abstract'].apply(lambda x: True if 'turkey' in x.lower() else False)]
 eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
-col2_x = col2.expander('0ne')
+expand00 = chage_points['date'].values[0]
+col2_x = col2.expander(expand00)
 with col2_x:
     st.write(eco)   
-    
-col2_y = col2.expander('two')
+expand01 = chage_points['date'].values[1]    
+col2_y = col2.expander(expand01)
 with col2_y:
     st.write(eco)   
     
