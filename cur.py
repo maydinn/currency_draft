@@ -28,6 +28,7 @@ with open('style.css') as f:
     
 
 df = pd.read_csv('data.csv')
+ny = pd.read_csv('ny.csv')
 df['ds'] = pd.to_datetime(df['ds'])
 col1, col2, col3, col4 = st.columns(4)
 key = 'Turkisch Lira'
@@ -43,7 +44,7 @@ col2.metric("Max", f'{round(df.y.max(),2)}', df[df.y == df.y.max()]['ds'].dt.str
 
 val = round(df.y.min() - now,2)
 delta_current ='The minimum value for {} in this year was {}, and comparing today {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
-col3.metric("Min", f'{round(df.y.min())}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
+col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
 
 
 val = round(df.y.rolling(7).mean().values[-1],2)
@@ -75,9 +76,15 @@ with col1_x:
     
 
 col2_x = col2.expander('News in Changes Points')
-
+d = datetime.timedelta(days = 7)
+df0 =ny[(ny.time <( m.changepoints[0] + d)) & (ny.time > (m.changepoints[0] - d))]
+eco = df0[df0.keywords.apply(lambda x: True if 'econom' in " ".join([i['value'].lower() for i in x]) else False)]
+eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url', 'Url'} )
 with col2_x:
-    st.write('ongoing')
+    col2_1 = col2_x.expander(m.changepoints[0])
+    with col2_1:
+        st.write(eco)
+    
 #fig, x = plt.subplots()
 #x = a
 
