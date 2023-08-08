@@ -77,7 +77,7 @@ with col1_x:
     
 
 col2_x = col2.expander('News in Changes Points')
-points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True))
+points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
 
 d = datetime.timedelta(days = 7)
 df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
