@@ -84,7 +84,7 @@ points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
 d = datetime.timedelta(days = 7)
 df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
 st.write(df0)
-eco = df0[df0.keywords.apply(lambda x: True if 'econom' in " ".join([str(i['value']).lower() for i in x]) else False)]
+eco = df0[df0.keywords.apply(lambda x: True if 'econom' in " ".join([i['value'].lower()  for i in x if len(x) > 0]) else False)]
 eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
 with col2_x:
     st.write(eco)       
