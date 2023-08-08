@@ -86,11 +86,11 @@ df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
 #st.write(df0)
 eco = df0[df0['abstract'].apply(lambda x: True if 'turkey' in x.lower() else False)]
 eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
-col2_x = col2.expander(points['ds'][0])
+col2_x = col2.expander('0ne')
 with col2_x:
     st.write(eco)   
     
-col2_y = col2.expander(points['ds'][1])
+col2_y = col2.expander('two')
 with col2_y:
     st.write(eco)   
     
