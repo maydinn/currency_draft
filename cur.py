@@ -83,11 +83,13 @@ points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
 
 d = datetime.timedelta(days = 7)
 df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
-st.write(df0)
+#st.write(df0)
 eco = df0[df0['abstract'].apply(lambda x: True if 'turkey' in x.lower() else False)]
 eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
 with col2_x:
-    st.write(eco)       
+    col2_1 = col2_x.expander('d')
+    with col2_1:
+        st.write(eco)       
     
 #fig, x = plt.subplots()
 #x = a
