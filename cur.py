@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime as ddt
 import datetime
 import pandas as pd
 from prophet import Prophet
@@ -37,8 +37,8 @@ headers= {
   "apikey": API_CUR
 }
 
-end_date = datetime.today().strftime('%Y-%m-%d')
-dt = datetime.today()
+end_date = ddt.today().strftime('%Y-%m-%d')
+dt = ddt.today()
 dt = dt.replace(year=dt.year-1)
 start_date = dt.strftime('%Y-%m-%d')
 url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=EUR&symbols=TRY"
