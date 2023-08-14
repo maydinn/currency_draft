@@ -34,7 +34,7 @@ ny = pd.read_csv('ny.csv')
 API_CUR = st.secrets["API_CUR"]
 payload = {}
 headers= {
-  "apikey": "API_CUR"
+  "apikey": API_CUR
 }
 
 end_date = datetime.today().strftime('%Y-%m-%d')
