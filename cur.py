@@ -28,9 +28,24 @@ with open('style.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     
 
-df = pd.read_csv('data.csv')
+#df = pd.read_csv('data.csv')
 ny = pd.read_csv('ny.csv')
 
+API_CUR = st.secrets["API_CUR"]
+payload = {}
+headers= {
+  "apikey": "API_CUR"
+}
+
+end_date = datetime.today().strftime('%Y-%m-%d')
+dt = datetime.today()
+dt = dt.replace(year=dt.year-1)
+start_date = dt.strftime('%Y-%m-%d')
+url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=EUR&symbols=TRY"
+urlData = requests.request("GET", url, headers=headers, data = payload).content
+rawData = pd.read_json(io.StringIO(urlData.decode('utf-8')))
+df = rawData.rates.apply(lambda x: x['TRY']).reset_index()
+df.columns = ['ds','y']
 ny['time'] = pd.to_datetime(ny['time'])
 df['ds'] = pd.to_datetime(df['ds'])
 col1, col2, col3, col4 = st.columns(4)
