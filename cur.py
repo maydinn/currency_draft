@@ -44,7 +44,7 @@ start_date = dt.strftime('%Y-%m-%d')
 url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=USD&symbols={c}"
 urlData = requests.request("GET", url, headers=headers, data = payload).content
 rawData = pd.read_json(io.StringIO(urlData.decode('utf-8')))
-df = rawData.rates.apply(lambda x: x['TRY']).reset_index()
+df = rawData.rates.apply(lambda x: x[c]).reset_index()
 df.columns = ['ds','y']
 
 ny['time'] = pd.to_datetime(ny['time'])
