@@ -46,7 +46,7 @@ urlData = requests.request("GET", url, headers=headers, data = payload).content
 rawData = pd.read_json(io.StringIO(urlData.decode('utf-8')))
 df = rawData.rates.apply(lambda x: x['TRY']).reset_index()
 df.columns = ['ds','y']
-st.write(df)
+
 ny['time'] = pd.to_datetime(ny['time'])
 df['ds'] = pd.to_datetime(df['ds'])
 col1, col2, col3, col4 = st.columns(4)
