@@ -119,7 +119,8 @@ with col2_x:
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    if len(eco) > 0:
+        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)   
 expand01 = chage_points['date'].values[1]    
 col2_y = col2.expander(expand01)
@@ -131,7 +132,8 @@ with col2_y:
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    if len(eco) > 0:
+        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)  
 expand02 = chage_points['date'].values[2]    
 col2_y = col2.expander(expand02)
@@ -143,7 +145,8 @@ with col2_y:
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    if len(eco) > 0:
+        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)  
     
 expand03 = chage_points['date'].values[3]    
@@ -156,7 +159,8 @@ with col2_y:
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    if len(eco) > 0:
+        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco) 
     
 expand04 = chage_points['date'].values[4]    
@@ -169,7 +173,8 @@ with col2_y:
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    if len(eco) > 0:
+        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco) 
     
 #fig, x = plt.subplots()
