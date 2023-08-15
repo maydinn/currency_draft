@@ -29,7 +29,7 @@ with open('style.css') as f:
     
 
 #df = pd.read_csv('data.csv')
-ny = pd.read_csv('ny.csv')
+
 
 API_CUR = st.secrets["API_CUR"]
 API_NEWS = st.secrets["API_NEWS"]
@@ -49,28 +49,28 @@ rawData = pd.read_json(io.StringIO(urlData.decode('utf-8')))
 df = rawData.rates.apply(lambda x: x[c]).reset_index()
 df.columns = ['ds','y']
 
-ny['time'] = pd.to_datetime(ny['time'])
+
 df['ds'] = pd.to_datetime(df['ds'])
 col1, col2, col3, col4 = st.columns(4)
 
 now = df.y.values[-1]
 key = c
-val = round(df.y.values[0] - now,2)
-delta_current ='The current {} is {} comparing the same day before'.format(key,val, "more" if val >= 0 else "less")
+val = round(  now - df.y.values[0],2)
+delta_current ='The current {} is {} comparing the same day a years ago'.format(key,val, "more" if val >= 0 else "less")
 col1.metric("Current",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max() - now,2)
-delta_current ='The maximum value for {} in this year was {}, and comparing today {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
+delta_current ='The maximum value for {} in this year was {}, and comparing today {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d').value[0],val, "more" if val >= 0 else "less")
 col2.metric("Max", f'{round(df.y.max(),2)}', df[df.y == df.y.max()]['ds'].dt.strftime("%d %b, %Y").values[0], 'inverse', delta_current)
 
 val = round(df.y.min() - now,2)
-delta_current ='The minimum value for {} in this year was {}, and comparing today {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d'),val, "more" if val >= 0 else "less")
+delta_current ='The minimum value for {} in this year was {}, and comparing today {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d').value[0],val, "more" if val >= 0 else "less")
 col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
 
 
 val = round(df.y.rolling(30).mean().values[-1],2)
 delta_current ='The mean for the last 30 days for {} is {}'.format(key,val )
-col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
+col4.metric("Mean in last 30 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet(n_changepoints = 2)
 m.fit(df)
@@ -86,7 +86,7 @@ with c1:
     
 with c2:
     
-    st.write(df.rename(columns = {'str_time':'date', 'y':'values'}).tail(7).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True))
+    st.write(df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True))
     
 
     
@@ -119,7 +119,7 @@ with col2_x:
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
+    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)   
 expand01 = chage_points['date'].values[1]    
 col2_y = col2.expander(expand01)
@@ -131,7 +131,7 @@ with col2_y:
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    eco = eco[['abstract', 'web_url']].rename(columns = {'abstract':'Info','web_url':'Url'} )
+    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)  
       
     
