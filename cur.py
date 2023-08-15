@@ -72,7 +72,7 @@ val = round(df.y.rolling(30).mean().values[-1],2)
 delta_current ='The mean for the last 30 days for {} is {}'.format(key,val )
 col4.metric("Mean in last 30 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
-m = Prophet(n_changepoints = 2)
+m = Prophet(n_changepoints = 5)
 m.fit(df)
 future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
@@ -125,7 +125,7 @@ expand01 = chage_points['date'].values[1]
 col2_y = col2.expander(expand01)
 with col2_y:
     url_1 = url.format(chage_points_year[1], chage_points_month[1], API_NEWS)
-    items = requests.get(url_0)
+    items = requests.get(url_1)
     data = items.json()
     ny = pd.json_normalize(data['response']['docs'])
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
@@ -133,7 +133,44 @@ with col2_y:
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
     eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)  
-      
+expand02 = chage_points['date'].values[2]    
+col2_y = col2.expander(expand02)
+with col2_y:
+    url_2 = url.format(chage_points_year[2], chage_points_month[2], API_NEWS)
+    items = requests.get(url_2)
+    data = items.json()
+    ny = pd.json_normalize(data['response']['docs'])
+    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    st.write(eco)  
+    
+expand03 = chage_points['date'].values[3]    
+col2_y = col2.expander(expand03)
+with col2_y:
+    url_3 = url.format(chage_points_year[3], chage_points_month[3], API_NEWS)
+    items = requests.get(url_3)
+    data = items.json()
+    ny = pd.json_normalize(data['response']['docs'])
+    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    st.write(eco) 
+    
+expand04 = chage_points['date'].values[4]    
+col2_y = col2.expander(expand04)
+with col2_y:
+    url_4 = url.format(chage_points_year[4], chage_points_month[2], API_NEWS)
+    items = requests.get(url_4)
+    data = items.json()
+    ny = pd.json_normalize(data['response']['docs'])
+    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+    eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+    st.write(eco) 
     
 #fig, x = plt.subplots()
 #x = a
