@@ -72,7 +72,7 @@ val = round(df.y.rolling(30).mean().values[-1],2)
 delta_current ='The mean for the last 30 days for {} is {}'.format(key,val )
 col4.metric("Mean in last 30 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
-m = Prophet(n_changepoints = 5)
+m = Prophet()
 m.fit(df)
 future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
@@ -110,8 +110,8 @@ points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
 d = datetime.timedelta(days = 3)
 
 expand00 = chage_points['date'].values[0]
-col2_x = col2.expander(expand00)
-with col2_x:
+col2_00 = col2.expander(expand00)
+with col2_00:
     url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
     items = requests.get(url_0)
     data = items.json()
@@ -123,8 +123,8 @@ with col2_x:
         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)   
 expand01 = chage_points['date'].values[1]    
-col2_y = col2.expander(expand01)
-with col2_y:
+col2_01 = col2.expander(expand01)
+with col2_01:
     url_1 = url.format(chage_points_year[1], chage_points_month[1], API_NEWS)
     items = requests.get(url_1)
     data = items.json()
@@ -136,8 +136,8 @@ with col2_y:
         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
     st.write(eco)  
 expand02 = chage_points['date'].values[2]    
-col2_y = col2.expander(expand02)
-with col2_y:
+col2_02 = col2.expander(expand02)
+with col2_02:
     url_2 = url.format(chage_points_year[2], chage_points_month[2], API_NEWS)
     items = requests.get(url_2)
     data = items.json()
@@ -150,8 +150,8 @@ with col2_y:
     st.write(eco)  
     
 expand03 = chage_points['date'].values[3]    
-col2_y = col2.expander(expand03)
-with col2_y:
+col2_03 = col2.expander(expand03)
+with col2_03:
     url_3 = url.format(chage_points_year[3], chage_points_month[3], API_NEWS)
     items = requests.get(url_3)
     data = items.json()
@@ -164,8 +164,8 @@ with col2_y:
     st.write(eco) 
     
 expand04 = chage_points['date'].values[4]    
-col2_y = col2.expander(expand04)
-with col2_y:
+col2_04 = col2.expander(expand04)
+with col2_04:
     url_4 = url.format(chage_points_year[4], chage_points_month[2], API_NEWS)
     items = requests.get(url_4)
     data = items.json()
