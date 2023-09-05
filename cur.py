@@ -102,11 +102,12 @@ df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
 df_m = df_m[df_m.chages_abs > 0.35].reset_index(drop=True)
 
+with col1_x:
+    st.write(df_m)
+
 # url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
-# with col1_x:
-#     st.write(chage_points)
-    
+
 
 
 # points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
