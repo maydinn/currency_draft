@@ -77,7 +77,7 @@ m.fit(df)
 future = m.make_future_dataframe(periods=3, freq="B")
 forecast = m.predict(future)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.35)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
@@ -97,97 +97,89 @@ chage_points = df.loc[df["ds"].isin(m.changepoints)].rename(columns = {'str_time
 chage_points_year = df.loc[df["ds"].isin(m.changepoints)].ds.dt.year.values
 chage_points_month = df.loc[df["ds"].isin(m.changepoints)].ds.dt.month.values
 
+df_m= df.loc[df["ds"].isin(m.changepoints)]
+df_m['chages'] = m.params['delta'].mean(0)
+df_m['chages_abs'] = abs(m.params['delta'].mean(0))
+df_m = df_m[df_m.chages_abs > 0.35].reset_index(drop=True)
 
-url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
+# url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
-with col1_x:
-    st.write(chage_points)
+# with col1_x:
+#     st.write(chage_points)
     
 
 
-points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
+# points = df.loc[df["ds"].isin(m.changepoints)].reset_index(drop = True)
 
-d = datetime.timedelta(days = 3)
+# d = datetime.timedelta(days = 3)
 
-expand00 = chage_points['date'].values[0]
-col2_00 = col2.expander(expand00)
-with col2_00:
-    url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
-    items = requests.get(url_0)
-    data = items.json()
-    ny = pd.json_normalize(data['response']['docs'])
-    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
-    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
-    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    if len(eco) > 0:
-        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
-    st.write(eco)   
-expand01 = chage_points['date'].values[1]    
-col2_01 = col2.expander(expand01)
-with col2_01:
-    url_1 = url.format(chage_points_year[1], chage_points_month[1], API_NEWS)
-    items = requests.get(url_1)
-    data = items.json()
-    ny = pd.json_normalize(data['response']['docs'])
-    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
-    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
-    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    if len(eco) > 0:
-        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
-    st.write(eco)  
-expand02 = chage_points['date'].values[2]    
-col2_02 = col2.expander(expand02)
-with col2_02:
-    url_2 = url.format(chage_points_year[2], chage_points_month[2], API_NEWS)
-    items = requests.get(url_2)
-    data = items.json()
-    ny = pd.json_normalize(data['response']['docs'])
-    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
-    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
-    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    if len(eco) > 0:
-        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
-    st.write(eco)  
+# expand00 = chage_points['date'].values[0]
+# col2_00 = col2.expander(expand00)
+# with col2_00:
+#     url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
+#     items = requests.get(url_0)
+#     data = items.json()
+#     ny = pd.json_normalize(data['response']['docs'])
+#     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+#     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+#     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+#     if len(eco) > 0:
+#         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+#     st.write(eco)   
+# expand01 = chage_points['date'].values[1]    
+# col2_01 = col2.expander(expand01)
+# with col2_01:
+#     url_1 = url.format(chage_points_year[1], chage_points_month[1], API_NEWS)
+#     items = requests.get(url_1)
+#     data = items.json()
+#     ny = pd.json_normalize(data['response']['docs'])
+#     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+#     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+#     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+#     if len(eco) > 0:
+#         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+#     st.write(eco)  
+# expand02 = chage_points['date'].values[2]    
+# col2_02 = col2.expander(expand02)
+# with col2_02:
+#     url_2 = url.format(chage_points_year[2], chage_points_month[2], API_NEWS)
+#     items = requests.get(url_2)
+#     data = items.json()
+#     ny = pd.json_normalize(data['response']['docs'])
+#     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+#     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+#     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+#     if len(eco) > 0:
+#         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+#     st.write(eco)  
     
-expand03 = chage_points['date'].values[3]    
-col2_03 = col2.expander(expand03)
-with col2_03:
-    url_3 = url.format(chage_points_year[3], chage_points_month[3], API_NEWS)
-    items = requests.get(url_3)
-    data = items.json()
-    ny = pd.json_normalize(data['response']['docs'])
-    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
-    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
-    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    if len(eco) > 0:
-        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
-    st.write(eco) 
+# expand03 = chage_points['date'].values[3]    
+# col2_03 = col2.expander(expand03)
+# with col2_03:
+#     url_3 = url.format(chage_points_year[3], chage_points_month[3], API_NEWS)
+#     items = requests.get(url_3)
+#     data = items.json()
+#     ny = pd.json_normalize(data['response']['docs'])
+#     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+#     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+#     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+#     if len(eco) > 0:
+#         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+#     st.write(eco) 
     
-expand04 = chage_points['date'].values[4]    
-col2_04 = col2.expander(expand04)
-with col2_04:
-    url_4 = url.format(chage_points_year[4], chage_points_month[2], API_NEWS)
-    items = requests.get(url_4)
-    data = items.json()
-    ny = pd.json_normalize(data['response']['docs'])
-    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
-    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
-    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    if len(eco) > 0:
-        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
-    st.write(eco) 
+# expand04 = chage_points['date'].values[4]    
+# col2_04 = col2.expander(expand04)
+# with col2_04:
+#     url_4 = url.format(chage_points_year[4], chage_points_month[2], API_NEWS)
+#     items = requests.get(url_4)
+#     data = items.json()
+#     ny = pd.json_normalize(data['response']['docs'])
+#     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+#     df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+#     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+#     if len(eco) > 0:
+#         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+#     st.write(eco) 
     
-#fig, x = plt.subplots()
-#x = a
 
-# @st.cache(hash_funcs={matplotlib.figure.Figure: hash})
-# def plot():
-#     #time.sleep(2)
-#     a = add_changepoints_to_plot(fig_.gca(), m, forecast)
-#     fig, ax = plt.subplots(11)
-#     ax.imshow(a)
-    
-#     return fig
-
-#horizontal_size = st.slider("horizontal size", 50,150,step=50)
 
