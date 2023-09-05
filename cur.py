@@ -85,8 +85,13 @@ with c1:
     st.pyplot(fig_)
     
 with c2:
+    c2_x = c2.expander('Values')
+    temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
+    temp.index +=1
+     with c2_x:
+
+        c2_x.table(temp.style.format({"values":"{:.3}"}))
     
-    st.write(df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True))
     
 
     
