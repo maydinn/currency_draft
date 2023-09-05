@@ -89,7 +89,7 @@ with c2:
     temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
     temp.index +=1
     with c2_x:
-        c2_x.table(temp.style.format({"values":"{:.3}"}))
+        c2_x.table(temp.style.format({"values":"{:.1}"}))
     
     
 
@@ -107,7 +107,7 @@ df_m['chages_abs'] = abs(m.params['delta'].mean(0))
 df_m = df_m[df_m.chages_abs > 0.35].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 
 with col1_x:
-    st.write(df_m)
+     c2_x.table(df_m.style.format({"values":"{:.1}"}))
 
 # url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
