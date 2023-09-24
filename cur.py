@@ -123,23 +123,25 @@ url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
 
 
-d = datetime.timedelta(days = 3)
+# d = datetime.timedelta(days = 3)
 
-expand00 = df_m['date'].values[0]
-col2_00 = col2.expander(expand00)
-with col2_00:
-    url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
-    items = requests.get(url_0)
-    data = items.json()
-    ny = pd.json_normalize(data['response']['docs'])
-    ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
-    st.write(ny)
-    st.write(df_ny)
-    df0 =ny[(ny['time'] <(df_ny['ds'][0] + d)) & (ny['time'] > (df_ny['ds'][0] - d))]
-    eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
-    if len(eco) > 0:
-        eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
-    st.write(eco)   
+# expand00 = df_m['date'].values[0]
+# col2_00 = col2.expander(expand00)
+# with col2_00:
+#     url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
+#     items = requests.get(url_0)
+#     data = items.json()
+#     ny = pd.json_normalize(data['response']['docs'])
+#     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
+#     st.write(ny)
+#     st.write(df_ny)
+#     df0 =ny[(ny['time'] <(df_ny['ds'][0] + d)) & (ny['time'] > (df_ny['ds'][0] - d))]
+#     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
+#     if len(eco) > 0:
+#         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
+#     st.write(eco) 
+    
+    
 # expand01 = chage_points['date'].values[1]    
 # col2_01 = col2.expander(expand01)
 # with col2_01:
