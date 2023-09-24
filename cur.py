@@ -51,6 +51,7 @@ df.columns = ['ds','y']
 
 
 df['ds'] = pd.to_datetime(df['ds'])
+df['y'] = df['y'].apply(lambda x: round(x, 2))
 col1, col2, col3, col4 = st.columns(4)
 
 now = df.y.values[-1]
@@ -89,7 +90,7 @@ with c2:
     temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
     temp.index +=1
     with c2_x:
-        c2_x.table(temp.style.format({"values":"{:.5}"}))
+        c2_x.table(temp)
     
     
 
