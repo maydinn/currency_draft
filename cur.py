@@ -134,7 +134,7 @@ with col2_00:
     ny = pd.json_normalize(data['response']['docs'])
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     st.write(ny)
-    df0 =ny[(ny.time <(df_ny['ds'][0] + d)) & (ny.time > (df_ny['ds'][0] - d))]
+    df0 =ny[(ny['time'] <(df_ny['ds'][0] + d)) & (ny['time'] > (df_ny['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
     if len(eco) > 0:
         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
