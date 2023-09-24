@@ -108,8 +108,7 @@ df_m['chages_abs'] = abs(m.params['delta'].mean(0))
 chage_points_year = df_m.ds.dt.year.values
 chage_points_month = df_m.ds.dt.month.values
 df_m = df_m[df_m.chages_abs > 0.35].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
-chage_points_year = df_m.ds.dt.year.values
-chage_points_month = df_m.ds.dt.month.values
+
 with col1_x:
      col1_x.table(df_m)
 
