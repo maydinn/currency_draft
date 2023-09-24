@@ -105,9 +105,13 @@ chage_points_month = df.loc[df["ds"].isin(m.changepoints)].ds.dt.month.values
 df_m= df.loc[df["ds"].isin(m.changepoints)]
 df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
-chage_points_year = df_m.ds.dt.year.values
-chage_points_month = df_m.ds.dt.month.values
+df_ny = df_m[df_m.chages_abs > 0.35]
+chage_points_year = df_ny.ds.dt.year.values
+chage_points_month = df_ny.ds.dt.month.values
+
 df_m = df_m[df_m.chages_abs > 0.35].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
+
+
 
 with col1_x:
      col1_x.table(df_m)
@@ -130,7 +134,7 @@ with col2_00:
     ny = pd.json_normalize(data['response']['docs'])
     ny['time'] = pd.to_datetime(ny.pub_date.str[:10])
     st.write(ny)
-    df0 =ny[(ny.time <(points['ds'][0] + d)) & (ny.time > (points['ds'][0] - d))]
+    df0 =ny[(ny.time <(df_ny['ds'][0] + d)) & (ny.time > (df_ny['ds'][0] - d))]
     eco = df0[df0['abstract'].apply(lambda x: True if currency_options[c].lower() in x.lower() else False)]
     if len(eco) > 0:
         eco = eco[['abstract', 'web_url', 'time']].rename(columns = {'abstract':'Info','web_url':'Url'} ).set_index('time')
