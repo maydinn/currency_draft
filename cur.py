@@ -105,6 +105,8 @@ chage_points_month = df.loc[df["ds"].isin(m.changepoints)].ds.dt.month.values
 df_m= df.loc[df["ds"].isin(m.changepoints)]
 df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
+chage_points_year = df_m.ds.dt.year.values
+chage_points_month = df_m.ds.dt.month.values
 df_m = df_m[df_m.chages_abs > 0.35].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 chage_points_year = df_m.ds.dt.year.values
 chage_points_month = df_m.ds.dt.month.values
