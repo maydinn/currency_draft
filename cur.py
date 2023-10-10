@@ -77,9 +77,9 @@ m = Prophet()
 m.fit(df)
 future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
-st.write(forecast)
+#st.write(forecast)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.2)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.35)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
@@ -106,7 +106,7 @@ chage_points_month = df.loc[df["ds"].isin(m.changepoints)].ds.dt.month.values
 df_m= df.loc[df["ds"].isin(m.changepoints)]
 df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
-df_ny = df_m[df_m.chages_abs > 0.2]
+df_ny = df_m[df_m.chages_abs > 0.35]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
 
