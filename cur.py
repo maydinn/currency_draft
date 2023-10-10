@@ -75,10 +75,10 @@ col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal"
 
 m = Prophet(changepoint_prior_scale=0.75, changepoint_range=0.9)
 m.fit(df)
-future = m.make_future_dataframe(periods=3, freq="B")
+future = m.make_future_dataframe(periods=1, freq="B")
 forecast = m.predict(future)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.35)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.1)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
