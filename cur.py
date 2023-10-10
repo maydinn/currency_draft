@@ -37,13 +37,13 @@ payload = {}
 headers= {
   "apikey": API_CUR
 }
-currency_options = {'TRY':'Turkey', 'ARS':'Argentina', 'RUB':'Russia', 'KRW':'South Korea', 'EUR':'EU', 'CNY':'China', 'INR':'India'}
+currency_options = {'TRY':'Turkey', 'ARS':'Argentina', 'RUB':'Russia', 'KRW':'South Korea', 'USD':'United States', 'CNY':'China', 'INR':'India'}
 c = st.selectbox(label = 'Wählen Sie eine Stadt aus', options =currency_options.keys())
 end_date = ddt.today().strftime('%Y-%m-%d')
 dt = ddt.today()
-dt = dt.replace(year=dt.year-1)
+dt = dt.replace(month=dt.month-1)
 start_date = dt.strftime('%Y-%m-%d')
-url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=USD&symbols={c}"
+url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=EUR&symbols={c}"
 urlData = requests.request("GET", url, headers=headers, data = payload).content
 rawData = pd.read_json(io.StringIO(urlData.decode('utf-8')))
 df = rawData.rates.apply(lambda x: x[c]).reset_index()
@@ -71,7 +71,7 @@ col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.st
 
 val = round(df.y.rolling(30).mean().values[-1],2)
 delta_current ='The mean for the last 30 days for {} is {}'.format(key,val )
-col4.metric("Mean in last 30 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
+col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet(changepoint_prior_scale=0.75, changepoint_range=0.9)
 m.fit(df)
