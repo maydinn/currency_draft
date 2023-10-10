@@ -37,7 +37,7 @@ payload = {}
 headers= {
   "apikey": API_CUR
 }
-currency_options = {'TRY':'Turkey', 'ARS':'Argentina', 'RUB':'Russia', 'KRW':'South Korea', 'USD':'United State', 'CNY':'China', 'INR':'India'}
+currency_options = {'TRY':'Turkey',  'RUB':'Russia', 'KRW':'South Korea', 'USD':'United State', 'CNY':'China', 'INR':'India'}
 c = st.selectbox(label = 'Wählen Sie eine Stadt aus', options =currency_options.keys())
 end_date = ddt.today().strftime('%Y-%m-%d')
 dt = ddt.today()
