@@ -41,7 +41,7 @@ currency_options = {'TRY':'Turkey',  'RUB':'Russia', 'KRW':'South Korea', 'USD':
 c = st.selectbox(label = 'Wählen Sie eine Stadt aus', options =currency_options.keys())
 end_date = ddt.today().strftime('%Y-%m-%d')
 dt = ddt.today()
-dt = dt.replace(month=dt.month-1)
+dt = dt.replace(year=dt.year-1)
 start_date = dt.strftime('%Y-%m-%d')
 url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=EUR&symbols={c}"
 urlData = requests.request("GET", url, headers=headers, data = payload).content
@@ -75,8 +75,9 @@ col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal"
 
 m = Prophet()
 m.fit(df)
-future = m.make_future_dataframe(periods=1, freq="B")
+future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
+st.write(forecast)
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.2)
 c1, c2 = st.columns([3, 1])
