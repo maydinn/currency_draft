@@ -127,7 +127,7 @@ url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 fig = px.line(df, x='ds', y='y', title='Time Series Data')
 
 fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], mode='lines', name='Forecast'))
-
+st.write(forecast)
 changepoints = df_ny['ds'].values
 st.write(changepoints[0])
 fig.add_vline(x=changepoints[0], line_width=3, line_dash="dash", line_color="green")
