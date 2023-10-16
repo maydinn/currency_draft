@@ -129,7 +129,7 @@ fig = px.line(df, x='ds', y='y', title='Time Series Data')
 fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], mode='lines', name='Forecast'))
 
 changepoints = df_ny['ds'].values
-fig.add_vline((x=changepoints[0], line_width=3, line_dash="dash", line_color="green")
+fig.add_vline(x=changepoints[0], line_width=3, line_dash="dash", line_color="green")
 # for changepoint in changepoints:
 #     fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
 #                              mode='lines',
