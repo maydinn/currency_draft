@@ -150,31 +150,42 @@ trace1 = go.Scatter(
 upper_band = go.Scatter(
     name = 'upper band',
     mode = 'lines',
-    x = list(df_forecast['ds']),
-    y = list(df_forecast['yhat_upper']),
+    x = list(forecast['ds']),
+    y = list(forecast['yhat_upper']),
     line= dict(color='#57b88f'),
     fill = 'tonexty'
 )
 lower_band = go.Scatter(
     name= 'lower band',
     mode = 'lines',
-    x = list(df_forecast['ds']),
-    y = list(df_forecast['yhat_lower']),
+    x = list(forecast['ds']),
+    y = list(forecast['yhat_lower']),
     line= dict(color='#1705ff')
 )
 
+tracex = go.Scatter(
+    name = 'Actual price',
+   mode = 'markers',
+   x = list(df['ds']),
+   y = list(df['y']),
+   marker=dict(
+      color='black',
+      line=dict(width=2)
+   )
+)
+data = [tracex, trace1, lower_band, upper_band, trace]
 
-fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], mode='lines', name='Forecast'))
-st.write(forecast)
-changepoints = df_ny['ds'].values
-st.write(changepoints[0])
-fig.add_vline(x=changepoints[0], line_width=3, line_dash="dash", line_color="green")
+layout = dict(title='Euro',
+             xaxis=dict(title = 'Dates', ticklen=2, zeroline=True))
+
+figure=dict(data=data,layout=layout)
+
 # for changepoint in changepoints:
 #     fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
 #                              mode='lines',
 #                              line=dict(color='red', dash='dot'),
 #                              name='Changepoint'))
-st.plotly_chart(fig)
+st.plotly_chart(figure)
 
 # d = datetime.timedelta(days = 3)
 
