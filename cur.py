@@ -132,8 +132,8 @@ changepoints = df_ny['ds'].values
 
 for changepoint in changepoints:
     fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
-                             mode='markers',
-                             marker=dict(size=10, color='red'),
+                             mode='lines',
+                             line=dict(color='red', dash='dot'),
                              name='Changepoint'))
 st.plotly_chart(fig)
 
