@@ -126,16 +126,7 @@ url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
 fig = px.line(df, x='ds', y='y', title='Time Series Data')
 
-trace = go.Scatter(
-    name = 'Actual price',
-    mode = 'markers',
-    x = list(forecast['ds']),
-    y = list(df['y']),
-    marker=dict(
-        color='#FFBAD2',
-        line=dict(width=1)
-    )
-)
+
 
 trace1 = go.Scatter(
     name = 'trend',
@@ -173,13 +164,14 @@ tracex = go.Scatter(
       line=dict(width=2)
    )
 )
-data = [tracex, trace1, lower_band, upper_band, trace]
+
+data = [tracex, trace1, lower_band, upper_band]
 
 layout = dict(title='Euro',
              xaxis=dict(title = 'Dates', ticklen=2, zeroline=True))
 
 figure=dict(data=data,layout=layout)
-
+figure.add_trace(go.Scatter(x=[df_ny.ds.values[0], df_ny.ds.values[0]], list(df['y']), mode='lines', line=dict(color='red', width=2)))
 # for changepoint in changepoints:
 #     fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
 #                              mode='lines',
