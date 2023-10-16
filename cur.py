@@ -164,7 +164,7 @@ tracex = go.Scatter(
       line=dict(width=2)
    )
 )
-line = go.Scatter(x=[df_ny.ds.values[0], df_ny.ds.values[0]], y= [0,max(list(df['y']))], mode='lines', line=dict(color='red', width=2))
+line = go.Scatter( name = 'change',x=[df_ny.ds.values[0], df_ny.ds.values[0]], y= [0,max(list(df['y']))], mode='lines', line=dict(color='black', width=2))
 
 data = [tracex, trace1, lower_band, upper_band, line]
 
