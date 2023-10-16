@@ -9,6 +9,7 @@ import matplotlib
 from prophet.plot import add_changepoints_to_plot
 import streamlit as st
 import plotly.tools
+import plotly.express as px
 
 st.set_page_config(layout='wide', initial_sidebar_state='expanded',page_title="currency",
     )
@@ -122,7 +123,20 @@ url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
 
 
+fig = px.line(df, x='ds', y='y', title='Time Series Data')
 
+fig.add_trace(px.line(forecast, x='ds', y='yhat', line_dash='dot', name='Forecast'))
+
+changepoints = df_ny['ds'].values
+
+for changepoint in changepoints:
+    if changepoint
+    fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
+                             mode='markers',
+                             marker=dict(size=10, color='red'),
+                             name='Changepoint'))
+    
+st.plotly_chart(fig)
 
 # d = datetime.timedelta(days = 3)
 
