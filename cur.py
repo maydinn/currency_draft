@@ -131,7 +131,7 @@ fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], mode='lines', nam
 changepoints = df_ny['ds'].values
 
 for changepoint in changepoints:
-    fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
+    fig.add_trace(go.Scatter(x=[changepoint, changepoint], y=[0, forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
                              mode='lines',
                              line=dict(color='red', dash='dot'),
                              name='Changepoint'))
