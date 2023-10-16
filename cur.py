@@ -75,7 +75,7 @@ val = round(df.y.rolling(30).mean().values[-1],2)
 delta_current ='The mean for the last 30 days for {} is {}'.format(key,val )
 col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
-m = Prophet(changepoint_prior_scale=0.01)
+m = Prophet(changepoint_prior_scale=0.05)
 m.fit(df)
 future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
