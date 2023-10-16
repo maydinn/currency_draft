@@ -130,11 +130,11 @@ fig.add_trace(go.Scatter(x=forecast['ds'], y=forecast['yhat'], mode='lines', nam
 
 changepoints = df_ny['ds'].values
 fig.add_vline((x=changepoints[0], line_width=3, line_dash="dash", line_color="green")
-for changepoint in changepoints:
-    fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
-                             mode='lines',
-                             line=dict(color='red', dash='dot'),
-                             name='Changepoint'))
+# for changepoint in changepoints:
+#     fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
+#                              mode='lines',
+#                              line=dict(color='red', dash='dot'),
+#                              name='Changepoint'))
 st.plotly_chart(fig)
 
 # d = datetime.timedelta(days = 3)
