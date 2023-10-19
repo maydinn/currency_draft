@@ -81,7 +81,7 @@ future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 #st.write(forecast)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
@@ -110,11 +110,11 @@ df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
 
 st.write(df_m)
-df_ny = df_m[df_m.chages_abs > 0]
+df_ny = df_m[df_m.chages_abs > 0.01]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
 
-df_m = df_m[df_m.chages_abs > 0].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
+df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 
 
 
