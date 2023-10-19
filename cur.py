@@ -43,7 +43,7 @@ currency_options = {'TRY':'Turkey',  'RUB':'Russia', 'KRW':'South Korea', 'USD':
 c = st.selectbox(label = 'Wählen Sie eine Stadt aus', options =currency_options.keys())
 end_date = ddt.today().strftime('%Y-%m-%d')
 dt = ddt.today()
-dt = dt.replace(year=dt.year-1)
+dt = dt.replace(month=dt.month-1)
 start_date = dt.strftime('%Y-%m-%d')
 url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=EUR&symbols={c}"
 urlData = requests.request("GET", url, headers=headers, data = payload).content
@@ -71,7 +71,7 @@ delta_current ='The minimum value for {} in this year was {}, and comparing toda
 col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
 
 
-val = round(df.y.rolling(30).mean().values[-1],2)
+val = round(df.y.rolling(7).mean().values[-1],2)
 delta_current ='The mean for the last 30 days for {} is {}'.format(key,val )
 col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
@@ -81,7 +81,7 @@ future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 #st.write(forecast)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.35)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.2)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
@@ -108,7 +108,7 @@ chage_points_month = df.loc[df["ds"].isin(m.changepoints)].ds.dt.month.values
 df_m= df.loc[df["ds"].isin(m.changepoints)]
 df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
-df_ny = df_m[df_m.chages_abs > 0.35]
+df_ny = df_m[df_m.chages_abs > 0.2]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
 
@@ -124,62 +124,11 @@ url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
 
 
-fig = px.line(df, x='ds', y='y', title='Time Series Data')
-
-
-
-trace1 = go.Scatter(
-    name = 'trend',
-    mode = 'lines',
-    x = list(forecast['ds']),
-    y = list(forecast['yhat']),
-    marker=dict(
-        color='red',
-        line=dict(width=3)
-    )
-)
-upper_band = go.Scatter(
-    name = 'upper band',
-    mode = 'lines',
-    x = list(forecast['ds']),
-    y = list(forecast['yhat_upper']),
-    line= dict(color='#57b88f'),
-    fill = 'tonexty'
-)
-lower_band = go.Scatter(
-    name= 'lower band',
-    mode = 'lines',
-    x = list(forecast['ds']),
-    y = list(forecast['yhat_lower']),
-    line= dict(color='#1705ff')
-)
-
-tracex = go.Scatter(
-    name = 'Actual price',
-   mode = 'markers',
-   x = list(df['ds']),
-   y = list(df['y']),
-   marker=dict(
-      color='black',
-      line=dict(width=2)
-   )
-)
-line = go.Scatter( name = 'change',x=[df_ny.ds.values[0], df_ny.ds.values[0]], y= [0,max(list(df['y']))], mode='lines', line=dict(color='black', width=2))
-
-data = [tracex, trace1, lower_band, upper_band, line]
-
-layout = dict(title='Euro',
-             xaxis=dict(title = 'Dates'))
-
-figure=dict(data=data,layout=layout)
-
 # for changepoint in changepoints:
 #     fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
 #                              mode='lines',
 #                              line=dict(color='red', dash='dot'),
 #                              name='Changepoint'))
-st.plotly_chart(figure)
-st.plotly_chart(line)
 
 # d = datetime.timedelta(days = 3)
 
