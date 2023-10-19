@@ -113,6 +113,7 @@ df_m['chages_abs'] = abs(m.params['delta'].mean(0))
 df_ny = df_m[df_m.chages_abs > 0.01]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
+chage_points_day = df_ny.ds.dt.day.values
 
 df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 
@@ -124,19 +125,41 @@ with col1_x:
 url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
 
+url = f'https://www.tagesschau.de/api2u/news?date={df_ny.ds.values[0].strftime('%y%m%d')}&ressort=wirtschaft'
+print(url)
+
+request = requests.get(url)
+response = request.json()
+#print(response)
+
+# Convert API response to .csv file
+title_list = []
+date_list = []
+web_list = []
+
+news_num = len(response['news'])
+print(news_num)
+
+for i in range(news_num):
+    date_list.append(response['news'][i]['date'])
+    title_list.append(response['news'][i]['title'])
+    web_list.append(response['news'][i]['detailsweb'])
 
 
-# for changepoint in changepoints:
-#     fig.add_trace(go.Scatter(x=[changepoint], y=[forecast.loc[forecast['ds'] == changepoint, 'yhat'].values[0]],
-#                              mode='lines',
-#                              line=dict(color='red', dash='dot'),
-#                              name='Changepoint'))
+news = pd.DataFrame({'Date': date_list,
+                   'Title': title_list,
+                   'Web': web_list,
+                   })
 
-# d = datetime.timedelta(days = 3)
 
-# expand00 = df_m['date'].values[0]
-# col2_00 = col2.expander(expand00)
-# with col2_00:
+
+
+
+
+expand00 = df_m['date'].values[0]
+col2_00 = col2.expander(expand00)
+with col2_00:
+    st.write(news)
 #     url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
 #     items = requests.get(url_0)
 #     data = items.json()
