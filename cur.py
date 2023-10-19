@@ -113,7 +113,7 @@ df_m['chages_abs'] = abs(m.params['delta'].mean(0))
 df_ny = df_m[df_m.chages_abs > 0.01]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
-chage_points_day = df_ny.ds.dt.day.values
+news_list = df_ny['ds'].values
 
 df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 
@@ -122,11 +122,11 @@ df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'va
 with col1_x:
      col1_x.table(df_m.head(3))
 
-url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
+#url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
 
-url = f'https://www.tagesschau.de/api2u/news?date={df_ny.ds.values[0].strftime('%y%m%d')}&ressort=wirtschaft'
-print(url)
+url = f'https://www.tagesschau.de/api2u/news?date={(news_list[0].strftime('%y%m%d'))}&ressort=wirtschaft'
+
 
 request = requests.get(url)
 response = request.json()
