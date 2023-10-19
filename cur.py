@@ -81,7 +81,7 @@ future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 #st.write(forecast)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.2)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
