@@ -75,13 +75,13 @@ val = round(df.y.rolling(7).mean().values[-1],2)
 delta_current ='The mean for the last 7 days for {} is {}'.format(key,val )
 col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
-m = Prophet(changepoint_prior_scale=0.01, changepoint_range=0.95, interval_width=0.95)
+m = Prophet(changepoint_prior_scale=0.01, changepoint_range=0.95, n_changepoints=3 )
 m.fit(df)
 future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 #st.write(forecast)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.2)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
@@ -108,16 +108,16 @@ chage_points_month = df.loc[df["ds"].isin(m.changepoints)].ds.dt.month.values
 df_m= df.loc[df["ds"].isin(m.changepoints)]
 df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
-df_ny = df_m[df_m.chages_abs > 0.2]
+df_ny = df_m[df_m.chages_abs > 0]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
 
-df_m = df_m[df_m.chages_abs > 0.2].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
+df_m = df_m[df_m.chages_abs > 0].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 
 
 
 with col1_x:
-     col1_x.table(df_m)
+     col1_x.table(df_m.head(3))
 
 url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
