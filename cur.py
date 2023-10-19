@@ -72,7 +72,7 @@ col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.st
 
 
 val = round(df.y.rolling(7).mean().values[-1],2)
-delta_current ='The mean for the last 30 days for {} is {}'.format(key,val )
+delta_current ='The mean for the last 7 days for {} is {}'.format(key,val )
 col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet(changepoint_prior_scale=0.05)
@@ -81,7 +81,7 @@ future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 #st.write(forecast)
 fig_ = m.plot(forecast)
-a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.2)
+a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold=0.3)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
@@ -108,11 +108,11 @@ chage_points_month = df.loc[df["ds"].isin(m.changepoints)].ds.dt.month.values
 df_m= df.loc[df["ds"].isin(m.changepoints)]
 df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
-df_ny = df_m[df_m.chages_abs > 0.2]
+df_ny = df_m[df_m.chages_abs > 0.3]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
 
-df_m = df_m[df_m.chages_abs > 0.35].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
+df_m = df_m[df_m.chages_abs > 0.3].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 
 
 
