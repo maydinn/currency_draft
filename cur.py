@@ -169,7 +169,7 @@ line = go.Scatter( name = 'change',x=[df_ny.ds.values[0], df_ny.ds.values[0]], y
 data = [tracex, trace1, lower_band, upper_band, line]
 
 layout = dict(title='Euro',
-             xaxis=dict(title = 'Dates', ticklen=2, zeroline=True))
+             xaxis=dict(title = 'Dates'))
 
 figure=dict(data=data,layout=layout)
 
@@ -179,6 +179,7 @@ figure=dict(data=data,layout=layout)
 #                              line=dict(color='red', dash='dot'),
 #                              name='Changepoint'))
 st.plotly_chart(figure)
+st.plotly_chart(line)
 
 # d = datetime.timedelta(days = 3)
 
