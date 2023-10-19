@@ -114,7 +114,7 @@ df_ny = df_m[df_m.chages_abs > 0.01]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
 news_list = df_ny['ds'].values
-st.write(news_list[0])
+st.write(news_list[0].strftime('%y%m%d'))
 
 df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
 
