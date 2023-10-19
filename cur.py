@@ -125,7 +125,7 @@ with col1_x:
 #url = "http://api.nytimes.com/svc/archive/v1/{}/{}.json?api-key={}"
 
 
-url = f'https://www.tagesschau.de/api2u/news?date={(news_list[0].strftime('%y%m%d'))}&ressort=wirtschaft'
+url = f"https://www.tagesschau.de/api2u/news?date={(news_list[0].strftime('%y%m%d'))}&ressort=wirtschaft"
 
 
 request = requests.get(url)
