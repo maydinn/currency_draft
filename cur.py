@@ -152,13 +152,18 @@ news = pd.DataFrame({'Date': date_list,
                    'Web': web_list,
                    })
 
-
+news['Date'] = news.apply(lambda x: x['Date'].strftime("%d %b, %Y"), 1)
 
 
 
 
 expand00 = df_m['date'].values[0]
 col2_00 = col2.expander(expand00)
+with col2_00:
+    st.write(news)
+    
+expand01 = df_m['date'].values[0]
+col2_01 = col2.expander(expand01)
 with col2_00:
     st.write(news)
 #     url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
