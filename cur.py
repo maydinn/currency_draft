@@ -80,7 +80,7 @@ m.fit(df)
 future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 
-st.write(forecast)
+st.write(forecast[['ds', 'ythat']])
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
 c1, c2 = st.columns([3, 1])
