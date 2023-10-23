@@ -153,7 +153,7 @@ news = pd.DataFrame({'Date': date_list,
                    })
 
 news['Datum'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
-news.drop('Date',1,inplace = True)
+news = news.drop('Date',1)
 
 
 
