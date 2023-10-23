@@ -153,19 +153,19 @@ news = pd.DataFrame({'Date': date_list,
                    })
 
 news['Datum'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
-news_sw = news.drop('Date',1)
+
 
 
 
 expand00 = df_m['date'].values[0]
 col2_00 = col2.expander(expand00)
 with col2_00:
-    st.write(news_sw)
+    st.write(news)
     
 expand01 = df_m['date'].values[0]
 col2_01 = col2.expander(expand01)
 with col2_00:
-    st.write(news_sw)
+    st.write(news)
 #     url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
 #     items = requests.get(url_0)
 #     data = items.json()
