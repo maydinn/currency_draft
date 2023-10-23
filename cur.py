@@ -160,12 +160,12 @@ news['Datum'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, 
 expand00 = df_m['date'].values[0]
 col2_00 = col2.expander(expand00)
 with col2_00:
-    st.write(news)
+    st.write(news['Datum', 'Title', 'Url'])
     
 expand01 = df_m['date'].values[0]
 col2_01 = col2.expander(expand01)
-with col2_00:
-    st.write(news)
+with col2_01:
+    st.write(news['Datum', 'Title', 'Url'])
 #     url_0 = url.format(chage_points_year[0], chage_points_month[0], API_NEWS)
 #     items = requests.get(url_0)
 #     data = items.json()
