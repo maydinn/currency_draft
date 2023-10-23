@@ -84,7 +84,7 @@ fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
 c1, c2 = st.columns([3, 1])
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
-
+st.write(forecast)
 with c1:
     st.pyplot(fig_)
     
