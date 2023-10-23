@@ -152,8 +152,8 @@ news = pd.DataFrame({'Date': date_list,
                    'Web': web_list,
                    })
 
-news['Datum'] = news.apply(lambda x: x['Date'].strftime("%d %b, %Y"), 1)
-news.drop('Date',1,inplace = True)
+# news['Datum'] = news.apply(lambda x: .strftime("%d %b, %Y"), 1)
+# news.drop('Date',1,inplace = True)
 
 
 
