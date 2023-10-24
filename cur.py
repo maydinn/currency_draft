@@ -162,4 +162,7 @@ if len(points_list) > 0:
 
         st.write(news[['Datum', 'Title', 'Web']])
 else:
-    col2_00 = col2.expander("No Change in Trend")
+    col2_00 = col2.expander("")
+    with col2_00:
+        st.write("No Change in Trend")
+        
