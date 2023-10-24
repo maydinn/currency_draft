@@ -81,11 +81,12 @@ future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 
 st.write(forecast.columns)
+st.write(forecast.iloc[:, [1,3]])
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
 c1, c2 = st.columns([3, 1])
-frc = forecast[['ds', 'ythat']].rename(columns = {'yhat':'y'}).tail(2)
-df = pd.concat([df,frc], ignore_index=True)
+#frc = forecast[['ds', 'ythat']].rename(columns = {'yhat':'y'}).tail(2)
+#df = pd.concat([df,frc], ignore_index=True)
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
 with c1:
