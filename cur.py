@@ -94,11 +94,22 @@ with c1:
     st.pyplot(fig_)
     
 with c2:
-    c2_x = c2.expander('Values')
     temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
-    temp.index +=1
+    table_html = "<table>"
+    for i, row in enumerate(data):
+        table_html += "<tr>"
+        for j, cell in enumerate(row):
+            if i in [1, 2]:
+                table_html += f"<td style='font-weight: bold'>{cell}</td>"
+            else:
+                table_html += f"<td>{cell}</td>"
+        table_html += "</tr>"
+    table_html += "</table>"
+    c2_x = c2.expander('Values')
+    
+    #temp.index +=1
     with c2_x:
-        c2_x.table(temp)
+        c2_x.write(table_html)
     
     
 
