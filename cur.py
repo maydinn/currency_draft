@@ -96,7 +96,7 @@ with c1:
 with c2:
     temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
     table_html = "<table>"
-    for i, row in enumerate(data):
+    for i, row in enumerate(temp):
         table_html += "<tr>"
         for j, cell in enumerate(row):
             if i in [1, 2]:
