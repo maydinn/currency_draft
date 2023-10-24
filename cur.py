@@ -81,35 +81,24 @@ future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 
 st.write(forecast.columns)
-st.write()
+
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
 c1, c2 = st.columns([3, 1])
 frc = forecast.iloc[:, [0,15]].rename(columns = {'yhat':'y'}).tail(2)
 df = pd.concat([df,frc], ignore_index=True)
-st.write(df)
+
 df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
 with c1:
     st.pyplot(fig_)
     
 with c2:
-    temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
-    table_html = "<table>"
-    for i, row in enumerate(temp):
-        table_html += "<tr>"
-        for j, cell in enumerate(row):
-            if i in [1, 2]:
-                table_html += f"<td style='font-weight: bold'>{cell}</td>"
-            else:
-                table_html += f"<td>{cell}</td>"
-        table_html += "</tr>"
-    table_html += "</table>"
     c2_x = c2.expander('Values')
-    
-    #temp.index +=1
+    temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
+    temp.index +=1
     with c2_x:
-        c2_x.write(table_html)
+        c2_x.table(temp)
     
     
 
