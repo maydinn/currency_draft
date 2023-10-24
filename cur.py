@@ -130,35 +130,36 @@ with col1_x:
      col1_x.table(df_m.head(3))
 
 
-
-expand00 = df_m['date'].values[0]
-col2_00 = col2.expander(expand00)
-with col2_00:
-    url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
-
-
-    request = requests.get(url)
-    response = request.json()
-
-    title_list = []
-    date_list = []
-    web_list = []
-
-    news_num = len(response['news'])
-
-    for i in range(news_num):
-        date_list.append(response['news'][i]['date'])
-        title_list.append(response['news'][i]['title'])
-        web_list.append(response['news'][i]['detailsweb'])
+if len(points_list) > 0:
+    expand00 = df_m['date'].values[0]
+    col2_00 = col2.expander(expand00)
+    with col2_00:
+        url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
 
 
-    news = pd.DataFrame({'Date': date_list,
-                       'Title': title_list,
-                       'Web': web_list,
-                       })
+        request = requests.get(url)
+        response = request.json()
 
-    news['Datum'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
-    news.index +=1
+        title_list = []
+        date_list = []
+        web_list = []
 
-    st.write(news[['Datum', 'Title', 'Web']])
-    
+        news_num = len(response['news'])
+
+        for i in range(news_num):
+            date_list.append(response['news'][i]['date'])
+            title_list.append(response['news'][i]['title'])
+            web_list.append(response['news'][i]['detailsweb'])
+
+
+        news = pd.DataFrame({'Date': date_list,
+                           'Title': title_list,
+                           'Web': web_list,
+                           })
+
+        news['Datum'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
+        news.index +=1
+
+        st.write(news[['Datum', 'Title', 'Web']])
+else:
+    col2_00 = col2.expander("No Change in Trend")
