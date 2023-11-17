@@ -170,11 +170,12 @@ if len(points_list) > 0:
                            'Title': title_list,
                            'Web': web_list,
                            })
+        news['URL'] = news['Web'].apply(lambda x: f'<a href="{x}" target="_blank">{x}</a>')
 
-        news['Datum'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
+        news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
         news.index +=1
 
-        st.write(news[['Datum', 'Title', 'Web']])
+        st.write(news[['Date', 'Title', 'URL']])
 else:
     col2_00 = col2.expander("")
     with col2_00:
