@@ -175,7 +175,7 @@ if len(points_list) > 0:
         news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
         news.index +=1
 
-        st.write(news[['Date', 'Title', 'URL']])
+        st.table(news[['Date', 'Title', 'URL']])
 else:
     col2_00 = col2.expander("")
     with col2_00:
