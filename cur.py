@@ -107,11 +107,7 @@ with c1:
     exp = st.expander('Explantion')
     with exp:
         
-        st.write("""This comprehensive graph provides an in-depth analysis of the Euro (EUR) to US Dollar (USD) exchange rate. The blue line depicts the historical exchange rate trends, showcasing observed values over time. The red line represents the underlying predictions captured forecasting model, offering insights into long-term patterns.
-
-    Key features include the shaded region around the trend line, illustrating the uncertainty associated with the forecast. Notably, the graph extends into a two-day prediction period providing a forward projection based on historical patterns.
-
-    The highlighted areas on the graph signify significant changes in trends. Down the page, you'll find news highlights corresponding to these specific dates, offering contextual information on events that may have influenced the observed shifts in the exchange rate trends.""")
+        st.write("""This comprehensive graph provides an in-depth analysis of the Euro (EUR) to US Dollar (USD) exchange rate. The blue line depicts the historical exchange rate trends, showcasing observed values over time. The red line represents the underlying predictions captured forecasting model, offering insights into long-term patterns.Key features include the shaded region around the trend line, illustrating the uncertainty associated with the forecast. Notably, the graph extends into a two-day prediction period providing a forward projection based on historical patterns.The highlighted areas on the graph signify significant changes in trends. Down the page, you'll find news highlights corresponding to these specific dates, offering contextual information on events that may have influenced the observed shifts in the exchange rate trends.""")
 with c2:
     c2_x = c2.expander('Values')
     temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['date', 'values']].reset_index(drop = True)
