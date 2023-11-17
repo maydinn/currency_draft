@@ -91,7 +91,7 @@ plt.xlabel('Datum')
 plt.ylabel('Werte')
 
 
-plt.legend(['Actual', 'Trend', 'Trend Components', 'Forecast'])
+plt.legend(['Actual', 'Predict', 'Predic Components', 'Trend', 'Chage in Trend'])
 
 c1, c2 = st.columns([3, 1])
 frc = forecast.iloc[:, [0,15]].rename(columns = {'yhat':'y'}).tail(2)
