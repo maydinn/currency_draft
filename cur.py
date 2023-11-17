@@ -84,6 +84,15 @@ forecast = m.predict(future)
 
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
+
+plt.xlabel('Datum')
+
+
+plt.ylabel('Werte')
+
+
+plt.legend(['Actual', 'Trend', 'Trend Components', 'Forecast'])
+
 c1, c2 = st.columns([3, 1])
 frc = forecast.iloc[:, [0,15]].rename(columns = {'yhat':'y'}).tail(2)
 df = pd.concat([df,frc], ignore_index=True)
