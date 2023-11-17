@@ -106,6 +106,7 @@ with c1:
     st.pyplot(fig_)
     exp = st.expander('Explantion')
     with exp:
+        
         st.write("""This comprehensive graph provides an in-depth analysis of the Euro (EUR) to US Dollar (USD) exchange rate. The blue line depicts the historical exchange rate trends, showcasing observed values over time. The red line represents the underlying predictions captured forecasting model, offering insights into long-term patterns.
 
     Key features include the shaded region around the trend line, illustrating the uncertainty associated with the forecast. Notably, the graph extends into a two-day prediction period providing a forward projection based on historical patterns.
