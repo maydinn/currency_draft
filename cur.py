@@ -40,6 +40,7 @@ headers= {
   "apikey": API_CUR
 }
 
+
 c = "USD"
 end_date = ddt.today().strftime('%Y-%m-%d')
 dt = ddt.today()
@@ -80,9 +81,10 @@ m.fit(df)
 future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 
-st.write(forecast)
+
 
 fig_ = m.plot(forecast)
+
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
 plt.title('USD to EUR Exchange Rate Trends: One-Month Overview with Two-Day Forecast')
 plt.xlabel('Datum')
@@ -123,7 +125,6 @@ df_m= df.loc[df["ds"].isin(m.changepoints)]
 df_m['chages'] = m.params['delta'].mean(0)
 df_m['chages_abs'] = abs(m.params['delta'].mean(0))
 
-#st.write(df_m)
 df_ny = df_m[df_m.chages_abs > 0.01]
 chage_points_year = df_ny.ds.dt.year.values
 chage_points_month = df_ny.ds.dt.month.values
