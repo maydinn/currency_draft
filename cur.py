@@ -84,14 +84,14 @@ st.write(forecast)
 
 fig_ = m.plot(forecast)
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
-
+plt.title('USD to EUR Exchange Rate Trends: One-Month Overview with Two-Day Forecast')
 plt.xlabel('Datum')
 
 
 plt.ylabel('Werte')
 
 
-plt.legend(['Actual', 'Predict', 'Predic Components', 'Trend', 'Chage in Trend'])
+plt.legend(['Actual', 'Predict', 'Predict Components', 'Trend', 'Change in Trend'])
 
 c1, c2 = st.columns([3, 1])
 frc = forecast.iloc[:, [0,15]].rename(columns = {'yhat':'y'}).tail(2)
