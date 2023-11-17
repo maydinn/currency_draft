@@ -94,7 +94,7 @@ plt.ylabel('Value')
 
 
 plt.legend(['Actual', 'Prediction', 'Prediction Components', 'Trend', 'Change in Trend'])
-exp = st.expand('Explantion')
+exp = st.expander('Explantion')
 with exp:
     st.write("""This comprehensive graph provides an in-depth analysis of the Euro (EUR) to US Dollar (USD) exchange rate. The blue line depicts the historical exchange rate trends, showcasing observed values over time. The red line represents the underlying predictions captured forecasting model, offering insights into long-term patterns.
 
