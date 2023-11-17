@@ -60,11 +60,11 @@ col1, col2, col3, col4 = st.columns(4)
 now = df.y.values[-1]
 key = c
 val = round(  now - df.y.values[0],2)
-delta_current ='The current {} is {} comparing the same day a years ago'.format(key,val, "more" if val >= 0 else "less")
+delta_current ='The current {} is {} comparing the same day a month ago'.format(key,val, "more" if val >= 0 else "less")
 col1.metric("Current",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max() - now,2)
-delta_current ='The maximum value for {} in this year was {}, and comparing today {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d').values[0],val, "more" if val >= 0 else "less")
+delta_current ='The maximum value for {} in this month was {}, and comparing today {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d').values[0],val, "more" if val >= 0 else "less")
 col2.metric("Max", f'{round(df.y.max(),2)}', df[df.y == df.y.max()]['ds'].dt.strftime("%d %b, %Y").values[0], 'inverse', delta_current)
 
 val = round(df.y.min() - now,2)
@@ -87,14 +87,21 @@ fig_ = m.plot(forecast)
 
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
 plt.title('USD to EUR Exchange Rate Trends: One-Month Overview with Two-Day Forecast')
-plt.xlabel('Datum')
+plt.xlabel('Date')
 
 
-plt.ylabel('Werte')
+plt.ylabel('Value')
 
 
-plt.legend(['Actual', 'Predict', 'Predict Components', 'Trend', 'Change in Trend'])
+plt.legend(['Actual', 'Prediction', 'Prediction Components', 'Trend', 'Change in Trend'])
+exp = st.expand('Explantion')
+with exp:
+    st.write("""This comprehensive graph provides an in-depth analysis of the Euro (EUR) to US Dollar (USD) exchange rate. The blue line depicts the historical exchange rate trends, showcasing observed values over time. The red line represents the underlying predictions captured forecasting model, offering insights into long-term patterns.
 
+Key features include the shaded region around the trend line, illustrating the uncertainty associated with the forecast. Notably, the graph extends into a two-day prediction period providing a forward projection based on historical patterns.
+
+The highlighted areas on the graph signify significant changes in trends. Down the page, you'll find news highlights corresponding to these specific dates, offering contextual information on events that may have influenced the observed shifts in the exchange rate trends.""")
+    
 c1, c2 = st.columns([3, 1])
 frc = forecast.iloc[:, [0,15]].rename(columns = {'yhat':'y'}).tail(2)
 df = pd.concat([df,frc], ignore_index=True)
