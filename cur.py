@@ -186,7 +186,7 @@ with col1_x:
                 }
             news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
             styled_df = news.style.set_properties(subset=['Web'], **url_style)
-            st.dataframe(styled_df, unsafe_allow_html=True)
+            st.dataframe(styled_df)
             
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
             news.index +=1
