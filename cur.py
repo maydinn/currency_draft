@@ -183,8 +183,8 @@ with col1_x:
             news_ = news[['Date', 'Title', 'URL']]
             news_ = news_.to_html(escape=False, index=False)
             st.write(news_, unsafe_allow_html=True)
-            for index, row in news.iterrows():
-                st.markdown(f"[{row['Date']}]({row['Web']})", unsafe_allow_html=True)
+            for index, row in df.iterrows():
+                st.write(f"Date: {row['date']}, Title: {row['title']}, URL: [{row['Web']}]({row['Web']})")
 #             st.markdown(
 #         f"""
 #         <div style="max-width: 600px;">
