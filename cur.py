@@ -176,14 +176,14 @@ with col1_x:
                                'Title': title_list,
                                'Web': web_list,
                                })
-            news['URL'] = news[['Web', 'Title']].apply(lambda x: make_clickable(x['Web'], x['Title']), 1)
+            news['News Title'] = news[['Web', 'Title']].apply(lambda x: make_clickable(x['Web'], x['Title']), 1)
 
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
             news.index +=1
-            news_ = news[['Date', 'URL']]
+            news_ = news[['Date', 'News Title']]
             news_ = news_.to_html(escape=False)
             st.write(news_, unsafe_allow_html=True)
-            st.write(news[['Date', 'Title', 'Web']])
+            #st.write(news[['Date', 'Title', 'Web']])
            
         if len(points_list) > 1:
             expand01 = df_m['date'].values[1]
@@ -211,12 +211,13 @@ with col1_x:
                                    'Title': title_list,
                                    'Web': web_list,
                                    })
-                news['URL'] = news['Web'].apply(lambda x: f'<a href="{x}" target="_blank">{x}</a>')
+                news['News Title'] = news[['Web', 'Title']].apply(lambda x: make_clickable(x['Web'], x['Title']), 1)
 
                 news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
                 news.index +=1
-
-                st.write(news[['Date', 'Title', 'Web']])
+                news_ = news[['Date', 'News Title']]
+                news_ = news_.to_html(escape=False)
+                st.write(news_, unsafe_allow_html=True)
     else:
         col2_00 = col2.expander("")
         with col2_00:
