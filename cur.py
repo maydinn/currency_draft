@@ -181,6 +181,7 @@ with col1_x:
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
             news.index +=1
             news = news.to_html(escape=False)
+            news = news[['Date', 'URL']]
             st.write(news, unsafe_allow_html=True)
             expand00 = df_m['date'].values[0]
         if len(points_list) > 1:
