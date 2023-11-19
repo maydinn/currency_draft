@@ -176,7 +176,7 @@ with col1_x:
                                'Title': title_list,
                                'Web': web_list,
                                })
-            news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">in order to read whole news: {x.Title}</a>', 1)
+            news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
     
 
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
@@ -222,7 +222,7 @@ with col1_x:
                                    'Title': title_list,
                                    'Web': web_list,
                                    })
-                news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">in order to read whole news: {x.Title}</a>', 1)
+                news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
     
 
                 news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
