@@ -183,14 +183,12 @@ with col1_x:
             
 
             
-            news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d-%b,%Y"))
+            news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d,%b,%Y"))
             news.index +=1
             news_ = news[['URL']]
-            cols = st.columns(3)
+            news_ = news[['Date', 'Title', 'URL']]
             news_ = news_.to_html(escape=False, index=False)
-            cols[0].write(news['Date'])
-            cols[1].write(news['Title'], unsafe_allow_html=False)
-            cols[2].write(news_, unsafe_allow_html=True)
+            st.write(news_, unsafe_allow_html=True)
         
 #             st.markdown(
 #         f"""
@@ -232,7 +230,7 @@ with col1_x:
                 news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
     
 
-                news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d-%b,%Y"))
+                news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d,%b,%Y"))
                 news.index +=1
                 news_ = news[['Date', 'Title', 'URL']]
                 news_ = news_.to_html(escape=False, index=False)
