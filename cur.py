@@ -147,7 +147,7 @@ col2_x = col2.expander("news at the change points")
 with col2_x:
     if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
-        col2_00 = col2.expander(expand00)
+        col2_00 = st.expander(expand00)
         with col2_00:
             url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
 
@@ -180,7 +180,7 @@ with col2_x:
             expand00 = df_m['date'].values[0]
         if len(points_list) > 1:
             expand01 = df_m['date'].values[1]
-            col2_01 = col2.expander(expand01)
+            col2_01 = st.expander(expand01)
             with col2_01:
                 url = f"https://www.tagesschau.de/api2u/news?date={points_list[1]}&ressort=wirtschaft"
 
