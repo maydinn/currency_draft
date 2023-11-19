@@ -184,7 +184,7 @@ with col1_x:
             news_ = news_.to_html(escape=False, index=False)
             st.markdown(
         f"""
-        <div style="max-width: {col2_width}px;">
+        <div style="max-width: 600px;">
             {new_}
         </div>
         """,
