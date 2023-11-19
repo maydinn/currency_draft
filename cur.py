@@ -182,7 +182,15 @@ with col1_x:
             news.index +=1
             news_ = news[['Date', 'News Title']]
             news_ = news_.to_html(escape=False, index=False)
-            st.write(news_, unsafe_allow_html=True, width=600)
+            st.markdown(
+        f"""
+        <div style="max-width: {col2_width}px;">
+            {new_}
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
+         #   st.write(news_, unsafe_allow_html=True, width=600)
             #st.write(news[['Date', 'Title', 'Web']])
            
         if len(points_list) > 1:
