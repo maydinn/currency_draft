@@ -204,7 +204,7 @@ with col1_x:
            
         if len(points_list) > 1:
             expand01 = df_m['date'].values[1]
-            col2_01 = col2.expander(f"News on {expand01}")
+            col2_01 = col2.expander(f"**News on {expand01}**")
             with col2_01:
                 url = f"https://www.tagesschau.de/api2u/news?date={points_list[1]}&ressort=wirtschaft"
 
