@@ -185,7 +185,7 @@ with col1_x:
             st.markdown(
         f"""
         <div style="max-width: 600px;">
-            {new_}
+            {news_}
         </div>
         """,
         unsafe_allow_html=True
