@@ -181,7 +181,7 @@ with col1_x:
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
             news.index +=1
             news_ = news[['Date', 'Title', 'URL']]
-            news_ = news_.to_html(escape=False, index=False)
+           # news_ = news_.to_html(escape=False, index=False)
             st.write(news_)
 #             st.markdown(
 #         f"""
