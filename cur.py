@@ -176,15 +176,15 @@ with col1_x:
                                'Title': title_list,
                                'Web': web_list,
                                })
-            news['URL'] = news[['Web']].apply(lambda x: make_clickable(x['Web'], x['Web']), 1)
+            news['URL'] = news['Web'].apply(lambda x: f'<a href="{Web}" target="_blank">{Web}</a>'))
+    
 
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
             news.index +=1
             news_ = news[['Date', 'Title', 'URL']]
             news_ = news_.to_html(escape=False, index=False)
             st.write(news_, unsafe_allow_html=True)
-            for index, row in news.iterrows():
-                st.write(f"Date: {row['Date']}, Title: {row['Title']}, URL: [{row['Web']}]({row['Web']})")
+            st.table(news, unsafe_allow_html=True)
 #             st.markdown(
 #         f"""
 #         <div style="max-width: 600px;">
