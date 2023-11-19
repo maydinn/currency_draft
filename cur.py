@@ -152,7 +152,7 @@ with col1_x:
 with col1_x:
     if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
-        col2_00 = col2.expander(f"News on {expand00}")
+        col2_00 = col2.expander(f"**News on {expand00}**")
         with col2_00:
             url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
 
@@ -185,11 +185,11 @@ with col1_x:
             
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b,%Y"))
             news.index +=1
-            news_ = news[['URL']]
-            news_ = news[['Date', 'Title', 'URL']]
-            news_.set_index('Date', inplace = True)
+          
+            news_ = news[['Title', 'URL']]
+            
             news_ = news_.to_html(escape=False)
-            st.write(news_, unsafe_allow_html=True, index = True)
+            st.write(news_, unsafe_allow_html=True, index = False)
         
 #             st.markdown(
 #         f"""
@@ -233,8 +233,8 @@ with col1_x:
 
                 news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b,%Y"))
                 news.index +=1
-                news_ = news[['Date', 'Title', 'URL']]
-                news_.set_index('Date', inplace = True)
+                news_ = news[['Title', 'URL']]
+             
                 news_ = news_.to_html(escape=False, index=True)
                 st.write(news_, unsafe_allow_html=True)
         
