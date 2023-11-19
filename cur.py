@@ -143,13 +143,15 @@ df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'va
 with col1_x:
      col1_x.table(df_m.head(3))
         
-#col2_x = col2.expander("news at the change points")
-with col2.expander("news at the change points"):
-    st.write("")
+col2_x = col2.expander("news at the change points")
+with col2_x:
+    col2_first = col2.expander(expand00)
+    with col2_first:
+        st.write("**news at the change points**")
     if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
-
-        with st.expander(expand00):
+        col2_00 = col2.expander(expand00)
+        with col2_00:
             url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
 
 
@@ -181,7 +183,8 @@ with col2.expander("news at the change points"):
             expand00 = df_m['date'].values[0]
         if len(points_list) > 1:
             expand01 = df_m['date'].values[1]
-            with st.expander(expand01):
+            col2_01 = col2.expander(expand01)
+            with col2_01:
                 url = f"https://www.tagesschau.de/api2u/news?date={points_list[1]}&ressort=wirtschaft"
 
 
