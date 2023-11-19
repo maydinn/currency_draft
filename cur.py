@@ -187,7 +187,8 @@ with col1_x:
             news.index +=1
             news_ = news[['URL']]
             news_ = news[['Date', 'Title', 'URL']]
-            news_ = news_.to_html(escape=False, index=False)
+            news_.set_index('Date', inplace = True)
+            news_ = news_.to_html(escape=False)
             st.write(news_, unsafe_allow_html=True)
         
 #             st.markdown(
