@@ -135,10 +135,9 @@ chage_points_month = df_ny.ds.dt.month.values
 points = df_ny.apply(lambda x: x.ds.strftime("%y%m%d"), 1)
 points_list = points.values
 
-def make_clickable(link):
+def make_clickable(link,text):
     # target _blank to open new window
     # extract clickable text to display for your link
-    text = link.split('=')[1]
     return f'<a target="_blank" href="{link}">{text}</a>'
 
 df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'values'})[['date', 'values']].reset_index(drop = True)
@@ -177,7 +176,7 @@ with col1_x:
                                'Title': title_list,
                                'Web': web_list,
                                })
-            news['URL'] = news['Web'].apply(lambda x: make_clickable(x))
+            news['URL'] = news[['Web', 'Title']].apply(lambda x: make_clickable(x['Web'], x['Title']), 1)
 
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
             news.index +=1
