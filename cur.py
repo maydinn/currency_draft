@@ -176,7 +176,7 @@ with col1_x:
                                'Title': title_list,
                                'Web': web_list,
                                })
-            news['URL'] = news['Web'].apply(lambda x: f'<a href="{x}" target="_blank">{x}</a>')
+            news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x['Web']}" target="_blank">in order to read whole news: {x['Title']}</a>', 1)
     
 
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
