@@ -178,7 +178,9 @@ with col1_x:
                                })
             news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
     
-
+            for index, row in news.iterrows():
+                st.write(f'<div style="max-width: 200px;">Date: {row["Date"]}, Title: {row["Title"]}, URL: <a href="{row["Web"]}" target="_blank">{row["Web"]}</a></div>',
+                         unsafe_allow_html=True)
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
             news.index +=1
             news_ = news[['Date', 'Title', 'URL']]
