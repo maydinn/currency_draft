@@ -144,7 +144,7 @@ with col1_x:
      col1_x.table(df_m.head(3))
         
 col2_x = col2.expander("news at the change points")
-with col1_x:
+with col2_x:
     if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
         col2_00 = col2.expander(expand00)
