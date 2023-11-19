@@ -142,46 +142,14 @@ df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'va
 
 with col1_x:
      col1_x.table(df_m.head(3))
-
-col2.write("news at the change points")
-if len(points_list) > 0:
-    expand00 = df_m['date'].values[0]
-    col2_00 = col2.expander(expand00)
-    with col2_00:
-        url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
-
-
-        request = requests.get(url)
-        response = request.json()
-
-        title_list = []
-        date_list = []
-        web_list = []
-
-        news_num = len(response['news'])
-
-        for i in range(news_num):
-            date_list.append(response['news'][i]['date'])
-            title_list.append(response['news'][i]['title'])
-            web_list.append(response['news'][i]['detailsweb'])
-
-
-        news = pd.DataFrame({'Date': date_list,
-                           'Title': title_list,
-                           'Web': web_list,
-                           })
-        news['URL'] = news['Web'].apply(lambda x: f'<a href="{x}" target="_blank">{x}</a>')
-
-        news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
-        news.index +=1
-
-        st.write(news[['Date', 'Title', 'Web']])
+        
+col2_x = col2.expander("news at the change points")
+with col1_x:
+    if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
-    if len(points_list) > 1:
-        expand01 = df_m['date'].values[1]
-        col2_01 = col2.expander(expand01)
-        with col2_01:
-            url = f"https://www.tagesschau.de/api2u/news?date={points_list[1]}&ressort=wirtschaft"
+        col2_00 = col2.expander(expand00)
+        with col2_00:
+            url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
 
 
             request = requests.get(url)
@@ -209,6 +177,39 @@ if len(points_list) > 0:
             news.index +=1
 
             st.write(news[['Date', 'Title', 'Web']])
+            expand00 = df_m['date'].values[0]
+        if len(points_list) > 1:
+            expand01 = df_m['date'].values[1]
+            col2_01 = col2.expander(expand01)
+            with col2_01:
+                url = f"https://www.tagesschau.de/api2u/news?date={points_list[1]}&ressort=wirtschaft"
+
+
+                request = requests.get(url)
+                response = request.json()
+
+                title_list = []
+                date_list = []
+                web_list = []
+
+                news_num = len(response['news'])
+
+                for i in range(news_num):
+                    date_list.append(response['news'][i]['date'])
+                    title_list.append(response['news'][i]['title'])
+                    web_list.append(response['news'][i]['detailsweb'])
+
+
+                news = pd.DataFrame({'Date': date_list,
+                                   'Title': title_list,
+                                   'Web': web_list,
+                                   })
+                news['URL'] = news['Web'].apply(lambda x: f'<a href="{x}" target="_blank">{x}</a>')
+
+                news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b, %Y"))
+                news.index +=1
+
+                st.write(news[['Date', 'Title', 'Web']])
 else:
     col2_00 = col2.expander("")
     with col2_00:
