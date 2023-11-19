@@ -182,7 +182,7 @@ with col1_x:
             news.index +=1
             news = news[['Date', 'URL']]
             news = news.to_html(escape=False)
-            st.write(news, unsafe_allow_html=True)
+            st.dataframe(news, unsafe_allow_html=True)
             expand00 = df_m['date'].values[0]
         if len(points_list) > 1:
             expand01 = df_m['date'].values[1]
