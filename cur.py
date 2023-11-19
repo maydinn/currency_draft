@@ -184,7 +184,7 @@ with col1_x:
             news_ = news[['Date', 'Title', 'URL']]
             news_ = news_.to_html(escape=False, index=False)
             st.write(news_, unsafe_allow_html=True)
-            st.table(news, unsafe_allow_html=True)
+            st.table(news)
 #             st.markdown(
 #         f"""
 #         <div style="max-width: 600px;">
