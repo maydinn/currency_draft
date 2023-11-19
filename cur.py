@@ -145,9 +145,9 @@ with col1_x:
         
 col2_x = col2.expander("news at the change points")
 with col2_x:
-    col2_first = col2.expander(expand00)
+    col2_first = col2.expander("**news at the change points**")
     with col2_first:
-        st.write("**news at the change points**")
+        st.write("")
     if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
         col2_00 = col2.expander(expand00)
