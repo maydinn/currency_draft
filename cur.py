@@ -143,9 +143,9 @@ df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'date', 'y':'va
 with col1_x:
      col1_x.table(df_m.head(3))
         
+        
 
-with col2_x:
-
+with col1_x:
     if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
         col2_00 = col2.expander(f"News on {expand00}")
