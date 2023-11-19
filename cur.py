@@ -178,21 +178,16 @@ with col1_x:
                                })
             
     
-            url_style = {
-                    'max-width': '600px',  # Adjust the max-width as needed
-                    'overflow': 'hidden',
-                    'text-overflow': 'ellipsis',
-                    'white-space': 'nowrap',
-                }
+    
             news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
-            styled_df = news.style.set_properties(subset=['Web'], **url_style)
+            
 
             
-            news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b,%Y"))
+            news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d-%b,%Y"))
             news.index +=1
             news_ = news[['Date', 'Title', 'URL']]
             news_ = news_.to_html(escape=False, index=False)
-            st.write(news_, unsafe_allow_html=True, **url_style)
+            st.write(news_, unsafe_allow_html=True)
         
 #             st.markdown(
 #         f"""
@@ -234,7 +229,7 @@ with col1_x:
                 news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
     
 
-                news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b,%Y"))
+                news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d-%b,%Y"))
                 news.index +=1
                 news_ = news[['Date', 'Title', 'URL']]
                 news_ = news_.to_html(escape=False, index=False)
