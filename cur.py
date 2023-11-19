@@ -210,8 +210,8 @@ with col1_x:
                 news.index +=1
 
                 st.write(news[['Date', 'Title', 'Web']])
-else:
-    col2_00 = col2.expander("")
-    with col2_00:
-        st.write("No Change in Trend")
+    else:
+        col2_00 = col2.expander("")
+        with col2_00:
+            st.write("No Change in Trend")
         
