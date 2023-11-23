@@ -74,7 +74,7 @@ col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.st
 
 val = round(df.y.rolling(7).mean().values[-1],2)
 delta_current ='Mittelwert der letzten 7 Tage {} ist {}'.format(key,val )
-col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
+col4.metric("Mittelwert der letzten 7 Tage",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet(changepoint_prior_scale=0.01, changepoint_range=0.95, n_changepoints=3 )
 m.fit(df)
@@ -179,7 +179,7 @@ with col1_x:
             
     
     
-            news['URL'] = news[['Web', 'Titel']].apply(lambda x: f'<a href="{x.Web}" target="_blank">Zur Nachricht:: {x.Title}</a>', 1)
+            news['URL'] = news[['Web', 'Titel']].apply(lambda x: f'<a href="{x.Web}" target="_blank">Zur Nachricht:: {x.Titel}</a>', 1)
             
 
             
@@ -228,7 +228,7 @@ with col1_x:
                                    'Titel': title_list,
                                    'Web': web_list,
                                    })
-                news['URL'] = news[['Web', 'Titel']].apply(lambda x: f'<a href="{x.Web}" target="_blank">Zur Nachricht:: {x.Title}</a>', 1)
+                news['URL'] = news[['Web', 'Titel']].apply(lambda x: f'<a href="{x.Web}" target="_blank">Zur Nachricht:: {x.Titel}</a>', 1)
     
 
                 news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b,%Y"))
