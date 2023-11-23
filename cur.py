@@ -73,7 +73,7 @@ col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.st
 
 
 val = round(df.y.rolling(7).mean().values[-1],2)
-delta_current ='The mean for the last 7 days for {} is {}'.format(key,val )
+delta_current ='Mittelwert der letzten 7 Tage {} ist {}'.format(key,val )
 col4.metric("Mean in last 7 days",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet(changepoint_prior_scale=0.01, changepoint_range=0.95, n_changepoints=3 )
@@ -86,14 +86,14 @@ forecast = m.predict(future)
 fig_ = m.plot(forecast)
 
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
-plt.title('USD to EUR Exchange Rate Trends: One-Month Overview with Two-Day Forecast')
-plt.xlabel('Date')
+plt.title('EUR/USD-Wechselkursentwicklung: Ein-Monats-Übersicht mit Zwei-Tages-Prognose')
+plt.xlabel('Datum')
 
 
-plt.ylabel('Value')
+plt.ylabel('Werte')
 
 
-plt.legend(['Actual', 'Prediction', 'Prediction Components', 'Trend', 'Change in Trend'])
+plt.legend(['Aktuell', 'Vorhersage', 'Vorhersage Komponenten', 'Tendenz', 'Trendwende'])
 
     
 c1, c2 = st.columns([3, 1])
@@ -104,7 +104,7 @@ df['str_time'] = df.apply(lambda x: x.ds.strftime("%d %b, %Y"), 1)
 
 with c1:
     st.pyplot(fig_)
-    exp = st.expander('Explantion')
+    exp = st.expander('Erläuterung')
     with exp:
         
         st.write("""Die vorliegende Grafik bietet eine detaillierte Analyse des Wechselkurses zwischen Euro (EUR) und US-Dollar (USD). Die blaue Linie stellt die historischen Wechselkurstrends dar und zeigt die Werte im Laufe der Zeit. Die rote Linie repräsentiert das zugrunde liegende Prognosemodell, das Einblicke in langfristige Muster bietet. Wichtige Merkmale sind der schattierte Bereich um die Prognoselinie, der die Unsicherheit der Vorhersage veranschaulicht. Beachtenswert ist, dass der Graph über einen Zeitraum von zwei Tagen hinausgeht und eine Vorwärtsprojektion auf Grundlage historischer Muster bietet. Hervorgehobene Bereiche im Graphen kennzeichnen signifikante Änderungen in den Trends. Weiter unten auf der Seite finden Sie Nachrichtenschlagzeilen, die kontextbezogene Informationen zu Ereignissen bieten, die möglicherweise die vorliegenden Verschiebungen in den Wechselkurstrends beeinflusst haben.""")
@@ -152,7 +152,7 @@ with col1_x:
 with col1_x:
     if len(points_list) > 0:
         expand00 = df_m['date'].values[0]
-        col2_00 = col2.expander(f"**News on {expand00}**")
+        col2_00 = col2.expander(f"**Nachrichten vom {expand00}**")
         with col2_00:
             url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
 
@@ -173,20 +173,20 @@ with col1_x:
 
 
             news = pd.DataFrame({'Date': date_list,
-                               'Title': title_list,
+                               'Titel': title_list,
                                'Web': web_list,
                                })
             
     
     
-            news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
+            news['URL'] = news[['Web', 'Titel']].apply(lambda x: f'<a href="{x.Web}" target="_blank">Zur Nachricht:: {x.Title}</a>', 1)
             
 
             
             news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b,%Y"))
             news.index +=1
           
-            news_ = news[['Title', 'URL']]
+            news_ = news[['Titel', 'URL']]
             
             news_ = news_.to_html(escape=False)
             st.write(news_, unsafe_allow_html=True, index = False)
@@ -204,7 +204,7 @@ with col1_x:
            
         if len(points_list) > 1:
             expand01 = df_m['date'].values[1]
-            col2_01 = col2.expander(f"**News on {expand01}**")
+            col2_01 = col2.expander(f"**Nachrichten vom {expand01}**")
             with col2_01:
                 url = f"https://www.tagesschau.de/api2u/news?date={points_list[1]}&ressort=wirtschaft"
 
@@ -225,15 +225,15 @@ with col1_x:
 
 
                 news = pd.DataFrame({'Date': date_list,
-                                   'Title': title_list,
+                                   'Titel': title_list,
                                    'Web': web_list,
                                    })
-                news['URL'] = news[['Web', 'Title']].apply(lambda x: f'<a href="{x.Web}" target="_blank">to read the news: {x.Title}</a>', 1)
+                news['URL'] = news[['Web', 'Titel']].apply(lambda x: f'<a href="{x.Web}" target="_blank">Zur Nachricht:: {x.Title}</a>', 1)
     
 
                 news['Date'] = news['Date'].apply(lambda x: pd.to_datetime(x).strftime("%d %b,%Y"))
                 news.index +=1
-                news_ = news[['Title', 'URL']]
+                news_ = news[['Titel', 'URL']]
              
                 news_ = news_.to_html(escape=False, index=True)
                 st.write(news_, unsafe_allow_html=True)
