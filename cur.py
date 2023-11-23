@@ -110,7 +110,7 @@ with c1:
         st.write("""Die vorliegende Grafik bietet eine detaillierte Analyse des Wechselkurses zwischen Euro (EUR) und US-Dollar (USD). Die blaue Linie stellt die historischen Wechselkurstrends dar und zeigt die Werte im Laufe der Zeit. Die rote Linie repräsentiert das zugrunde liegende Prognosemodell, das Einblicke in langfristige Muster bietet. Wichtige Merkmale sind der schattierte Bereich um die Prognoselinie, der die Unsicherheit der Vorhersage veranschaulicht. Beachtenswert ist, dass der Graph über einen Zeitraum von zwei Tagen hinausgeht und eine Vorwärtsprojektion auf Grundlage historischer Muster bietet. Hervorgehobene Bereiche im Graphen kennzeichnen signifikante Änderungen in den Trends. Weiter unten auf der Seite finden Sie Nachrichtenschlagzeilen, die kontextbezogene Informationen zu Ereignissen bieten, die möglicherweise die vorliegenden Verschiebungen in den Wechselkurstrends beeinflusst haben.""")
 with c2:
     c2_x = c2.expander('Werte')
-    temp = df.rename(columns = {'str_time':'date', 'y':'values'}).tail(14).sort_values('ds',ascending=False)[['Datum', 'Werte']].reset_index(drop = True)
+    temp = df.rename(columns = {'str_time':'Datum', 'y':'Werte'}).tail(14).sort_values('ds',ascending=False)[['Datum', 'Werte']].reset_index(drop = True)
     temp.index +=1
     with c2_x:
         c2_x.table(temp)
@@ -140,12 +140,13 @@ def make_clickable(link,text):
     # extract clickable text to display for your link
     return f'<a target="_blank" href="{link}">{text}</a>'
 
-df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'Datum', 'y':'values'})[['date', 'Werte']].reset_index(drop = True)
+df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'Datum', 'y':'values'})[['Datum', 'Werte']].reset_index(drop = True)
 
 
 
 with col1_x:
-     col1_x.table(df_m.head(3))
+    df_m.index +=1
+    col1_x.table(df_m.head(3))
         
         
 
