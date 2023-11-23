@@ -152,7 +152,7 @@ with col1_x:
 
 with col1_x:
     if len(points_list) > 0:
-        expand00 = df_m['date'].values[0]
+        expand00 = df_m['Datum'].values[0]
         col2_00 = col2.expander(f"**Nachrichten vom {expand00}**")
         with col2_00:
             url = f"https://www.tagesschau.de/api2u/news?date={points_list[0]}&ressort=wirtschaft"
@@ -191,20 +191,10 @@ with col1_x:
             
             news_ = news_.to_html(escape=False)
             st.write(news_, unsafe_allow_html=True, index = False)
-        
-#             st.markdown(
-#         f"""
-#         <div style="max-width: 600px;">
-#             {news_}
-#         </div>
-#         """,
-#         unsafe_allow_html=False
-#     )
-             
-            #st.write(news[['Date', 'Title', 'Web']])
+
            
         if len(points_list) > 1:
-            expand01 = df_m['date'].values[1]
+            expand01 = df_m['Datum'].values[1]
             col2_01 = col2.expander(f"**Nachrichten vom {expand01}**")
             with col2_01:
                 url = f"https://www.tagesschau.de/api2u/news?date={points_list[1]}&ressort=wirtschaft"
