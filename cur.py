@@ -86,7 +86,7 @@ forecast = m.predict(future)
 fig_ = m.plot(forecast)
 
 a = add_changepoints_to_plot(fig_.gca(), m, forecast, threshold= 0.01)
-plt.title('EUR/USD-Wechselkursentwicklung: Ein-Monats-Übersicht mit Zwei-Tages-Prognose')
+plt.title('EUR-USD-Wechselkursentwicklung: Ein-Monats-Übersicht mit Zwei-Tages-Prognose')
 plt.xlabel('Datum')
 
 
