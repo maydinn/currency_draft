@@ -60,7 +60,7 @@ col1, col2, col3, col4 = st.columns(4)
 now = df.y.values[-1]
 key = c
 val = round(  now - df.y.values[0],2)
-delta_current ='The current {} is {} comparing the same day a month ago'.format(key,val, "more" if val >= 0 else "less")
+delta_current ='The current {} is {} comparing a month ago'.format(key,val, "more" if val >= 0 else "less")
 col1.metric("Current",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max() - now,2)
