@@ -140,7 +140,7 @@ def make_clickable(link,text):
     # extract clickable text to display for your link
     return f'<a target="_blank" href="{link}">{text}</a>'
 
-df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'Datum', 'y':'values'})[['Datum', 'Werte']].reset_index(drop = True)
+df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'Datum', 'y':'Werte'})[['Datum', 'Werte']].reset_index(drop = True)
 
 
 
