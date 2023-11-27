@@ -77,8 +77,8 @@ delta_current ='Mittelwert der letzten 7 Tage {} ist {}'.format(key,val )
 col4.metric("Mittelwert der letzten 7 Tage",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet(changepoint_prior_scale=0.01, changepoint_range=0.95, n_changepoints=3 )
-prophet.set_seed(42)
 m.fit(df)
+
 future = m.make_future_dataframe(periods=2, freq="B")
 forecast = m.predict(future)
 
