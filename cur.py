@@ -57,6 +57,7 @@ df['ds'] = pd.to_datetime(df['ds'])
 
 col1, col2, col3, col4 = st.columns(4)
 
+
 now = df.y.values[-1]
 key = c
 val = round(  now - df.y.values[0],2)
