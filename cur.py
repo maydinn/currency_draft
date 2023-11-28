@@ -60,15 +60,15 @@ col1, col2, col3, col4 = st.columns(4)
 now = df.y.values[-1]
 key = c
 val = round(  now - df.y.values[0],2)
-delta_current ='The current {} is {} comparing a month ago'.format(key,val, "more" if val >= 0 else "less")
-col1.metric("Current",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
+delta_current ='Der aktuelle {} ist {} im Vergleich zu vor einem Monat'.format(key,val, "mehr" if val >= 0 else "weniger")
+col1.metric("Aktuell",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max() - now,2)
-delta_current ='The maximum value for {} in this month was {}, and comparing today {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d').values[0],val, "more" if val >= 0 else "less")
+delta_current ='Der Höchstwert für {} in diesem Monat was {}, und im Vergleich zu heute {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m-%d').values[0],val, "mehr" if val >= 0 else "weniger")
 col2.metric("Max", f'{round(df.y.max(),2)}', df[df.y == df.y.max()]['ds'].dt.strftime("%d %b, %Y").values[0], 'inverse', delta_current)
 
 val = round(df.y.min() - now,2)
-delta_current ='The minimum value for {} in this year was {}, and comparing today {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d').values[0],val, "more" if val >= 0 else "less")
+delta_current ='Der niedrigste Wert für {} in diesem Jahr war {},  und im Vergleich heute {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d').values[0],val, "mehr" if val >= 0 else "weniger")
 col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
 
 
@@ -146,8 +146,11 @@ df_m = df_m[df_m.chages_abs > 0.01].rename(columns = {'str_time':'Datum', 'y':'W
 
 
 with col1_x:
-    df_m.index +=1
-    col1_x.table(df_m.head(3))
+    if len(points_list) > 0:
+        df_m.index +=1
+        col1_x.table(df_m.head(3))
+    else:
+        st.write("Keine Trendänderung")
         
         
 
@@ -233,5 +236,5 @@ with col1_x:
     else:
         col2_00 = col2.expander("")
         with col2_00:
-            st.write("No Change in Trend")
+            st.write("Keine Trendänderung")
         
