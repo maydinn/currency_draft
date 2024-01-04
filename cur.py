@@ -44,7 +44,7 @@ headers= {
 c = "USD"
 end_date = ddt.today().strftime('%Y-%m-%d')
 dt = ddt.today()
-dt = dt.replace(month=dt.month-1)
+dt = dt.replace(month=dt.month-1 if dt.month > 1 else 12)
 start_date = dt.strftime('%Y-%m-%d')
 url = f"https://api.apilayer.com/exchangerates_data/timeseries?start_date={start_date}&end_date={end_date}&base=EUR&symbols={c}"
 urlData = requests.request("GET", url, headers=headers, data = payload).content
