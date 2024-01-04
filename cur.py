@@ -65,11 +65,11 @@ delta_current ='Der aktuelle {} ist {} im Vergleich zu vor einem Monat'.format(k
 col1.metric("Aktuell",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max() - now,2)
-delta_current ='Der Höchstwert für {} in diesem Monat was {}, und im Vergleich zu heute {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%m %b').values[0],val, "mehr" if val >= 0 else "weniger")
+delta_current ='Der Höchstwert für {} in diesem Monat was {}, und im Vergleich zu heute {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%d %b').values[0],val, "mehr" if val >= 0 else "weniger")
 col2.metric("Max", f'{round(df.y.max(),2)}', df[df.y == df.y.max()]['ds'].dt.strftime("%d %b, %Y").values[0], 'inverse', delta_current)
 
 val = round(df.y.min() - now,2)
-delta_current ='Der niedrigste Wert für {} in diesem Jahr war {},  und im Vergleich heute {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%m-%d').values[0],val, "mehr" if val >= 0 else "weniger")
+delta_current ='Der niedrigste Wert für {} in diesem Jahr war {},  und im Vergleich heute {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%d-%m').values[0],val, "mehr" if val >= 0 else "weniger")
 col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
 
 
