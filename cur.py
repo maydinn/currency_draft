@@ -67,16 +67,16 @@ delta_current ='Der aktuelle {} ist {} {}, und {} {} im Vergleich zu vor einem M
 col1.metric("Aktuell",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max() - now,2)
-delta_current ='Der Höchstwert für {} in diesem Monat was {}, und im Vergleich zu heute {} {}'.format(key,df[df.y == df.y.max()]['ds'].dt.strftime('%d %b').values[0],val, "mehr" if val >= 0 else "weniger")
+delta_current ='Der Höchstwert für {} in diesem Monat was {}, und im Vergleich zu heute {} {}'.format(base, df[df.y == df.y.max()]['ds'].dt.strftime('%d %b').values[0],val, "mehr" if val >= 0 else "weniger")
 col2.metric("Max", f'{round(df.y.max(),2)}', df[df.y == df.y.max()]['ds'].dt.strftime("%d %b, %Y").values[0], 'inverse', delta_current)
 
 val = round(df.y.min() - now,2)
-delta_current ='Der niedrigste Wert für {} in diesem Monat war {},  und im Vergleich heute {} {}'.format(key,df[df.y == df.y.min()]['ds'].dt.strftime('%d-%m').values[0],val, "mehr" if val >= 0 else "weniger")
+delta_current ='Der niedrigste Wert für {} in diesem Monat war {},  und im Vergleich heute {} {}'.format(base,df[df.y == df.y.min()]['ds'].dt.strftime('%d-%m').values[0],val, "mehr" if val >= 0 else "weniger")
 col3.metric("Min", f'{round(df.y.min(), 2)}', df[df.y == df.y.min()]['ds'].dt.strftime("%d %b, %Y").values[0], 'normal', delta_current)
 
 
 val = round(df.y.rolling(7).mean().values[-1],2)
-delta_current ='Mittelwert der letzten 7 Tage {} ist {}'.format(key,val )
+delta_current ='Mittelwert der letzten 7 Tage {} ist {}'.format(base,val )
 col4.metric("Mittelwert der letzten 7 Tage",  val, '' ,"inverse" if val >= 0 else "normal", delta_current )
 
 m = Prophet(changepoint_prior_scale=0.01, changepoint_range=0.95, n_changepoints=3 )
