@@ -62,7 +62,7 @@ now = df.y.values[-1]
 key = c
 base = 'EUR'
 val = round(  now - df.y.values[0],2)
-delta_current ='Der aktuelle {} ist {} {}, und {} {} im Vergleich zu vor einem Monat'.format(base, now,key, "mehr" if val >= 0 else "weniger")
+delta_current ='Der aktuelle {} ist {} {}, und {} {} im Vergleich zu vor einem Monat'.format(base, now,key,val, "mehr" if val >= 0 else "weniger")
 col1.metric("Aktuell",  f'{round(now,2)}', df[df.ds == df.ds.max()]['ds'].dt.strftime("%d %b, %Y").values[0], "inverse" if val >= 0 else "normal", delta_current)
 
 val = round(df.y.max() - now,2)
